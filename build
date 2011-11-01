@@ -1,0 +1,8 @@
+#!/bin/sh
+pandoc --template beamer.template \
+       -i slides.md -o slides-md.tex
+perl -pe 's/\\section/\\end{frame}\n\\begin{frame}/' -i slides-md.tex
+perl -pe 's/\\end{document}/\\end{frame}\n\\end{document}/' -i slides-md.tex
+pdflatex slides-md.tex </dev/null
+bibtex slides-md
+pdflatex slides-md.tex </dev/null
