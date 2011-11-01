@@ -4,6 +4,8 @@ $else$
 \documentclass{beamer}
 \usepackage[round]{natbib}
 \usepackage{amsmath}
+\usepackage{amsthm}
+\theoremstyle{definition}
 $if(xetex)$
 \usepackage{ifxetex}
 \ifxetex
