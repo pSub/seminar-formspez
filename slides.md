@@ -45,6 +45,21 @@ Further, a relation $\mapsto \subseteq P \times P$ that describes possible succe
 and it's reflexsiv and transitive closure $\mapsto^*$.
 
 # State
+We have a set of local states, \texttt{LocState} and a global memory \texttt{GMemory}.
+In Addition we have a set of thread identifiers \texttt{Thread}.
+
+\begin{definition}[State]
+  \begin{enumerate}
+  \item \texttt{SeqState} is a product \texttt{LocState} $\times$ \texttt{GMemory}
+  \item \texttt{ConcState} is a product (\texttt{Thread} $\rightharpoonup$ \texttt{LocState}) $\times$ \texttt{GMemory}
+  \end{enumerate}
+\end{definition}
+
+Accessors for a state $s$:
+
+  - s.lst and s.gmem are projections on the first and second component
+  - s.act is the set of active threads
+  - s.pc(tid) retrieves the current program point of the thread tid
 
 # Security environment
 
