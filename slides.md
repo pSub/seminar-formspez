@@ -37,7 +37,7 @@ We have a set of sequential Instructions $SeqIns$ and a primitive
   \begin{enumerate}
   \item A set of program points P, with a distinguised entry point 1 and exit point \texttt{exit}
   \item A map from $P$ to $Ins$, where $Ins = SeqIns \cup \{start pc\}$ and $pc \in P \setminus \{\mathtt{stop}\}$.
-        The map is refered to as P[i].
+        This map is refered to as P[i].
   \end{enumerate}
 \end{definition}
 
