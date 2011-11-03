@@ -82,10 +82,11 @@ Now we classify threads in:
 s.lowT &= \{tid \in s.act | L(s.pc(tid))\} \\
 s.highT &= \{tid \in s.act | H(s.pc(tid))\} \\
 s.ahighT &= \{tid \in s.act | AH(s.pc(tid))\} \\
-s.hidT &= \{tid \in s.act | H(s.pc(tid)) \land \not AH(s.pc(tid))\} 
+s.hidT &= \{tid \in s.act | H(s.pc(tid)) \land \lnot AH(s.pc(tid))\} 
 \end{align*}
 
 # Scheduler
+
 
 # Other/related solutions
 
