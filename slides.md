@@ -62,6 +62,30 @@ Accessors for a state $s$:
   - s.pc(tid) retrieves the current program point of the thread tid
 
 # Security environment
+We assume a set of levels \texttt{Level} = \{_low_, _high_\} where _low_ < _high_
+with an attacker on level _low_.
+
+\begin{definition}[Security environment]
+   \begin{enumerate}
+   \item A function $se : P \rightarrow \mathtt{Level}$
+   \item A program point $i \in P$ is:
+     \begin{itemize}
+     \item low if $se(i) = low$, written $L(i)$
+     \item high if $se(i) = high$, written $H(i)$
+     \item always high if $\forall j \in P . i \mapsto^* j \rightarrow se(j) = high$, written $AH(i)$
+     \end{itemize}
+   \end{enumerate}
+\end{definition}
+
+Now we classify threads in:
+\begin{align*}
+s.lowT &= \{tid \in s.act | L(s.pc(tid))\} \\
+s.highT &= \{tid \in s.act | H(s.pc(tid))\} \\
+s.ahighT &= \{tid \in s.act | AH(s.pc(tid))\} \\
+s.hidT &= \{tid \in s.act | H(s.pc(tid)) \land \not AH(s.pc(tid))\} 
+\end{align*}
+
+# Scheduler
 
 # Other/related solutions
 
