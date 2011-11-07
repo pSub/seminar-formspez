@@ -89,13 +89,18 @@ s.hidT &= \{tid \in s.act | H(s.pc(tid)) \land \lnot AH(s.pc(tid))\}
 
 # History & Scheduler
 
+\begin{definition}[History]
+A History \texttt{History} is a list of pairs $(tid, l)$, where tid $\in$ \texttt{Thread}
+and $l \in$ \texttt{Level}.
+\end{definition}
+
 \begin{definition}[Scheduler]
 A scheduler is a function $pickt : ConcState \times History \rightharpoonup Thread$
 that statisfies these conditions:
    \begin{enumerate}
    \item Always picks active threads
-   \item
-   \item
+   \item if s.hidT $\neq \emptyset$ then pick(s, h) $\in$ s.hightT
+   \item Only uses low names and the low part of the history to pick a low thread
    \end{enumerate}
 \end{definition}
 
