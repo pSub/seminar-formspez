@@ -104,6 +104,12 @@ that statisfies these conditions:
    \end{enumerate}
 \end{definition}
 
+# Type system & Soundness
+
 # Other/related solutions
+  - Volpano & Smith use a \texttt{protect(c)} method
+  - Russo & Sabelfeld use \texttt{hide} and \texttt{unhide} primitives.
+  - Disallowing races on public data
+  - …
 
 # Conclusion / Outlook
