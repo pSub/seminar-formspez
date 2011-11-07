@@ -15,13 +15,15 @@
   - There are private (_high_) and public (_low_) variables
   - The attacker has access to low-level variables
   - Sequential:
-    - explicit flows: `public := private`
-    - implicit flows: `if private then public := 1`
+    - explicit flows: `lo := hi`
+    - implicit flows: `if hi then lo := 1`
   - Concurrent:
-    - internal timing leak: \newline `if private {sleep(100)}; public := 1 || sleep(50); public := 0`
+    - internal timing leak: \newline `if hi {sleep(100)}; lo := 1 || sleep(50); lo := 0`
+    - other example: `hi := 0; lo = x || hi := private-data`
+  - I don't cover external timing leaks
 
 # Discussion of a solution
-  - Syntax & Semantic of multithreaded programs
+  - Syntax & Semantic of multithreaded programs3
     - Program
     - State & Security environment
     - Scheduler
@@ -85,8 +87,17 @@ s.ahighT &= \{tid \in s.act | AH(s.pc(tid))\} \\
 s.hidT &= \{tid \in s.act | H(s.pc(tid)) \land \lnot AH(s.pc(tid))\} 
 \end{align*}
 
-# Scheduler
+# History & Scheduler
 
+\begin{definition}[Scheduler]
+A scheduler is a function $pickt : ConcState \times History \rightharpoonup Thread$
+that statisfies these conditions:
+   \begin{enumerate}
+   \item Always picks active threads
+   \item
+   \item
+   \end{enumerate}
+\end{definition}
 
 # Other/related solutions
 
