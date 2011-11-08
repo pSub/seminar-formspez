@@ -20,7 +20,7 @@
   - Concurrent:
     - internal timing leak: \newline `if hi {sleep(100)}; lo := 1 || sleep(50); lo := 0`
     - other example: `hi := 0; lo = x || hi := private-data`
-  - I don't cover external timing leaks
+  - External timing leaks are not covered
 
 # Discussion of a solution
   - Syntax & Semantic of multithreaded programs3
