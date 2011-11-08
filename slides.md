@@ -127,6 +127,21 @@ where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
     - `goto j` / `ifeq j` -- un-/conditional jump to j
     - `start j` -- create a new thread starting in j
 
+# Transfer rules
+\begin{prooftree}
+\AxiomC{$P[i] = store x$}
+\AxiomC{$se(i) \sqcup k \leq \Gamma(x)$}
+\BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow st$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$P[i] = ifeq j$}
+\AxiomC{$\forall j' \in reg(i), k \leq se(j')$}
+\BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)$}
+\end{prooftree}
+
+…
+
 # Other/related solutions
   - Volpano & Smith use a \texttt{protect(c)} method
   - Russo & Sabelfeld use \texttt{hide} and \texttt{unhide} primitives.
