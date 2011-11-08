@@ -118,6 +118,8 @@ where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
 
 # Soundness of the type system
 
+# The next function
+
 # Instantiation
   - Simple langugage with `if`, `;`, `:=`, `while` and `fork`
   - Assembly 
@@ -141,6 +143,12 @@ where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
 \end{prooftree}
 
 …
+
+# sregion, tregion & compilation
+
+# junction points & next function
+
+# Adaption to the JVM
 
 # Other/related solutions
   - Volpano & Smith use a \texttt{protect(c)} method
