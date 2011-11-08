@@ -105,6 +105,16 @@ that statisfies these conditions:
 \end{definition}
 
 # Type system & Soundness
+\texttt{LType} is a poset of local types.
+
+\begin{definition}[Typable program]
+A program is typable if
+  \begin{enumerate}
+  \item for all initial program points holds $S(i) = t_{init}$ and
+  \item $\forall i, j \in P: (i \mapsto j) \rightarrow \exists s \in \mathtt{LType} \ . \ se, i \vdash S(i) \Rightarrow s \land S(j) \leq s$
+  \end{enumerate}
+where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
+\end{definition}
 
 # Other/related solutions
   - Volpano & Smith use a \texttt{protect(c)} method
