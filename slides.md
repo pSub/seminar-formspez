@@ -104,7 +104,7 @@ that statisfies these conditions:
    \end{enumerate}
 \end{definition}
 
-# Type system & Soundness
+# Type system
 \texttt{LType} is a poset of local types.
 
 \begin{definition}[Typable program]
@@ -115,6 +115,17 @@ A program is typable if
   \end{enumerate}
 where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
 \end{definition}
+
+# Soundness of the type system
+
+# Instantiation
+  - Simple langugage with `if`, `;`, `:=`, `while` and `fork`
+  - Assembly 
+    - `push n` -- push value on the stack
+    - `load x` -- push value of variable on the stack
+    - `store x` -- store first element of the stack in x
+    - `goto j` / `ifeq j` -- un-/conditional jump to j
+    - `start j` -- create a new thread starting in j
 
 # Other/related solutions
   - Volpano & Smith use a \texttt{protect(c)} method
