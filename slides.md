@@ -144,11 +144,18 @@ where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
 
 …
 
-# sregion, tregion & compilation
+# Concurrent extension
+
+# sregion & tregion
 
 # junction points & next function
 
 # Adaption to the JVM
+  - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system
+  - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible
+  - Issues
+    - Method calls have a big-step semantic
+    - This approach doesn't deal with synchronisation
 
 # Other/related solutions
   - Volpano & Smith use a \texttt{protect(c)} method
