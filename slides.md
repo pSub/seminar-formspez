@@ -155,7 +155,7 @@ The \texttt{next} function has to fulfill the following properties:
 \BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)$}
 \end{prooftree}
 
-…
+\center{…}
 
 # Concurrent extension
 
