@@ -120,6 +120,19 @@ where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
 
 # The next function
 
+If the execution of program point $i$ results in a high thread, the
+function $\mathtt{next}: P \rightharpoonup P$ calculates the program point in which the
+thread becomes visible again.
+
+The \texttt{next} function has to fulfill the following properties:
+\begin{align}
+&Dom(next) = \{i \in P | H(i) \land \neg AH(i)\} \\
+&i, j \in Dom(next) \land i \mapsto j \Rightarrow next(i) = next(j) \\
+&i \in Dom(next) \land j \not\in Dom(next) \land i \mapsto j \Rightarrow next(i) = j \\
+&j, k \in Dom(next) \land i \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k) \\
+&i, j \in Dom(next) \land k \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k \\
+\end{align}
+
 # Instantiation
   - Simple langugage with `if`, `;`, `:=`, `while` and `fork`
   - Assembly 
