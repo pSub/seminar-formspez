@@ -219,6 +219,29 @@ If c is \texttt{while} then $n \in tregion(n)$.
 
 # junction points & next function
 
+\begin{definition}[junction point]
+For every branching point $[c]^n$ in the source program we define
+\begin{align*}
+jun(n) = max \{i|i \in tregion(n)\} + 1
+\end{align*}
+\end{definition}
+
+To identify the outermost branching points that involves secrets we extend the type system. A source program
+is typeable ($\vdash_\circ c : E$ where E maps labels to security levels) and judgments of the form $\vdash_\alpha [c]^n_{\alpha'} : E$.
+One example typing rule:
+
+\begin{prooftree}
+\AxiomC{$\vdash e : H$}
+\AxiomC{$\vdash_\bullet c :e$}
+\AxiomC{$E = lift_H(E, sregion(n))$}
+\TrinaryInfC{$\vdash_\circ [while \ e \ do \ c]^n_\bullet : E$}
+\end{prooftree}
+
+\begin{definition}[next]
+For alle branching program points c such that $\vdash_{\circ}[n]^n_\bullet$ $next$ is defined as
+$\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
+\end{definition}
+
 # Adaption to the JVM
   - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system
   - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible
