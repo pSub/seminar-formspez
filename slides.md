@@ -204,10 +204,18 @@ We label the program points where control flow can branch or side effects can oc
 
 > c ::= [x := e]$^n$ | c;c | [if e then c else c]$^n$ | [while e do c]$^n$ | [fork(c)]$^n$
 
-With this labeling we can define control dependence regions for the source langugage and derive
-them for the taget language.
+With this labeling we can define control dependence regions for the source langugage (\texttt{sregion}) and derive
+them for the taget language (\texttt{tregion}).
 
 # sregion & tregion
+\begin{definition}[sregion]
+$sregion(n)$ is defined as the set of labels that are inside a branching command $[c]^n$, except those inside \texttt{fork}.
+\end{definition}
+
+\begin{definition}[tregion]
+$tregion(n)$ is defined for $[c]^n$ as the set of instructions/labels obtained by compiling $[c']^{n'}$ where $n' \in sregion(n)$.
+If c is \texttt{while} then $n \in tregion(n)$.
+\end{definition}
 
 # junction points & next function
 
