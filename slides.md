@@ -45,13 +45,13 @@ We have a set of sequential Instructions $SeqIns$ and a primitive
 
 \begin{definition}[Program P]
   \begin{enumerate}
-  \item A set of program points P, with a distinguised entry point 1 and exit point \texttt{exit}
-  \item A map from $P$ to $Ins$, where $Ins = SeqIns \cup \{start pc\}$ and $pc \in P \setminus \{\mathtt{stop}\}$.
+  \item A set of program points $\mathcal{P}$, with a distinguised entry point $1$ and exit point \texttt{exit}
+  \item A map from $P$ to $Ins$, where $Ins = SeqIns \cup \{start pc\}$ and $pc \in \mathcal{P} \setminus \{\mathtt{stop}\}$.
         This map is refered to as P[i].
   \end{enumerate}
 \end{definition}
 
-Further, a relation $\mapsto \subseteq P \times P$ that describes possible successor instructions
+Further, a relation $\mapsto \subseteq \mathcal{P} \times \mathcal{P}$ that describes possible successor instructions
 and it's reflexive and transitive closure $\mapsto^*$.
 
 # State
@@ -77,12 +77,12 @@ with an attacker on level _low_.
 
 \begin{definition}[Security environment]
    \begin{enumerate}
-   \item A function $se : P \rightarrow \mathtt{Level}$
+   \item A function $se : \mathcal{P} \rightarrow \mathtt{Level}$
    \item A program point $i \in P$ is:
      \begin{itemize}
      \item low if $se(i) = low$, written $L(i)$
      \item high if $se(i) = high$, written $H(i)$
-     \item always high if $\forall j \in P . i \mapsto^* j \rightarrow se(j) = high$, written $AH(i)$
+     \item always high if $\forall j \in \mathcal{P} . i \mapsto^* j \rightarrow se(j) = high$, written $AH(i)$
      \end{itemize}
    \end{enumerate}
 \end{definition}
@@ -119,18 +119,18 @@ Intuition of the type judgements: $se, i \vdash s \Rightarrow t$ means if execut
 program point $i$ the type changes from $s$ to $t$ w.r.t a security environment $se$.
 
 \begin{definition}[Typable program]
-A program is typable (written $se, S \vdash P$) if
+A program is typable (written $se, \mathcal{S} \vdash P$) if
   \begin{enumerate}
   \item for all initial program points holds $S(i) = t_{init}$ and
-  \item $\forall i, j \in P: (i \mapsto j) \rightarrow \exists s \in \mathtt{LType} \ . \ se, i \vdash S(i) \Rightarrow s \land S(j) \leq s$
+  \item $\forall i, j \in \mathcal{P}: (i \mapsto j) \rightarrow \exists s \in \mathtt{LType} \ . \ se, i \vdash \mathcal{S}(i) \Rightarrow s \land \mathcal{S}(j) \leq s$
   \end{enumerate}
-where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
+where $\mathcal{S} : \mathcal{P} \rightarrow \mathtt{LType}$ and a security environment $se$.
 \end{definition}
 
 # Soundness of the type system
 
 \begin{theorem}
-If the scheduler is secure and $se, S \vdash P$, then P is noninterfering
+If the scheduler is secure and $se, \mathcal{S} \vdash P$, then P is noninterfering
 \end{theorem}
 
 Due to this theorem it is possible to typecheck the bytecode (which was compiled type-preserving)
@@ -142,12 +142,12 @@ on which the proof relies.
 # The next function
 
 If the execution of program point $i$ results in a high thread, the
-function $\mathtt{next}: P \rightharpoonup P$ calculates the program point in which the
+function $\mathtt{next}: \mathcal{P} \rightharpoonup \mathcal{P}$ calculates the program point in which the
 thread becomes visible again.
 
 The \texttt{next} function has to fulfill the following properties:
 \begin{align}
-&Dom(next) = \{i \in P | H(i) \land \neg AH(i)\} \\
+&Dom(next) = \{i \in \mathcal{P} | H(i) \land \neg AH(i)\} \\
 &i, j \in Dom(next) \land i \mapsto j \Rightarrow next(i) = next(j) \\
 &i \in Dom(next) \land j \not\in Dom(next) \land i \mapsto j \Rightarrow next(i) = j \\
 &j, k \in Dom(next) \land i \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k) \\
@@ -179,8 +179,8 @@ $\mathtt{LType} = Stack(\mathtt{Level})$
 \BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)$}
 \end{prooftree}
 
-where $reg : P \rightharpoonup P(P)$ computes the control dependence region and
-$jun : P \rightharpoonup P$ computes the junction point. $lift_k(st)$ is the point-wise
+where $reg : \mathcal{P} \rightharpoonup \mathfrak{P}(\mathcal{P})$ computes the control dependence region and
+$jun : \mathcal{P} \rightharpoonup \mathcal{P}$ computes the junction point. $lift_k(st)$ is the point-wise
 extension of $\lambda k' . k \sqcup k'$.
 
 Similar rules have to be established for the other commands of the target language.
