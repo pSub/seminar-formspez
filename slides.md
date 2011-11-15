@@ -107,6 +107,9 @@ that statisfies these conditions:
 # Type system
 \texttt{LType} is a poset of local types.
 
+Intuition of the type judgements: $se, i \vdash s \Rightarrow t$ means if executing
+program point $i$ the type changes from $s$ to $t$ w.r.t a security environment $se$.
+
 \begin{definition}[Typable program]
 A program is typable if
   \begin{enumerate}
