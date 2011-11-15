@@ -150,8 +150,8 @@ The \texttt{next} function has to fulfill the following properties:
 &Dom(next) = \{i \in \mathcal{P} | H(i) \land \neg AH(i)\} \\
 &i, j \in Dom(next) \land i \mapsto j \Rightarrow next(i) = next(j) \\
 &i \in Dom(next) \land j \not\in Dom(next) \land i \mapsto j \Rightarrow next(i) = j \\
-&j, k \in Dom(next) \land i \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k) \\
-&i, j \in Dom(next) \land k \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k \\
+&j, k \in Dom(next) \land i \not\in Dom(next) \\ \notag &\land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k) \\
+&i, j \in Dom(next) \land k \not\in Dom(next) \\ \notag &\land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k
 \end{align}
 
 # Instantiation
