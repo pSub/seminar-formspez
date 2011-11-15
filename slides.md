@@ -1,5 +1,5 @@
 % Pascal Wittmann
-% Security of Multithreaded Programms by Compilation
+% "Security of Multithreaded Programms by Compilation" \newline by Gilles Barthe, Tamara Rezk, Alejandro Russo and Andrei Sabelfeld
 % December 1-2, 2011
 
 # Overview
@@ -13,7 +13,7 @@
 
 # Security problems of multithreaded programs
   - There are private (_high_) and public (_low_) variables
-  - The attacker has access to low-level variables
+  - The attacker can observe low-level variables
   - Sequential:
     - explicit flows: `lo := hi`
     - implicit flows: `if hi then lo := 1`
@@ -23,11 +23,11 @@
   - External timing leaks are not covered
 
 # Discussion of a solution
-  - Syntax & Semantic of multithreaded programs3
+  - Syntax & Semantic of multithreaded programs
     - Program
     - State & Security environment
     - Scheduler
-  - Typ system & it's soundness
+  - Type system & it's soundness
   - Concrete instantiation
   - Type preserving compilation
 
@@ -158,6 +158,7 @@ The \texttt{next} function has to fulfill the following properties:
 \center{…}
 
 # Concurrent extension
+
 
 # sregion & tregion
 
