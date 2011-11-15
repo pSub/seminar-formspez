@@ -44,7 +44,7 @@ We have a set of sequential Instructions $SeqIns$ and a primitive
 \end{definition}
 
 Further, a relation $\mapsto \subseteq P \times P$ that describes possible successor instructions
-and it's reflexsiv and transitive closure $\mapsto^*$.
+and it's reflexive and transitive closure $\mapsto^*$.
 
 # State
 We have a set of local states, \texttt{LocState} and a global memory \texttt{GMemory}.
