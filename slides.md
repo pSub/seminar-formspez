@@ -10,6 +10,11 @@
   - Conclusion / Outlook.
 
 # Why formal methods?
+  - Modeling precisely a part of the world
+  - Formulate the problem unambiguous
+  - Leaving unimportant things underspecified
+  - Improve the understanding of the problem
+  - Use abstraction to cover a large number of cases
 
 # Security problems of multithreaded programs
   - There are private (_high_) and public (_low_) variables
@@ -21,6 +26,9 @@
     - internal timing leak: \newline `if hi {sleep(100)}; lo := 1 || sleep(50); lo := 0`
     - other example: `hi := 0; lo = x || hi := private-data`
   - External timing leaks are not covered
+  - Advantages of formal methods
+    - Applicable on a wide rage of schedulers and bytecode
+    - Verification without running the program
 
 # Discussion of a solution
   - Syntax & Semantic of multithreaded programs
