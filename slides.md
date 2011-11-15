@@ -228,7 +228,7 @@ jun(n) = max \{i|i \in tregion(n)\} + 1
 
 To identify the outermost branching points that involves secrets we extend the type system. A source program
 is typeable ($\vdash_\circ c : E$ where E maps labels to security levels) and judgments of the form $\vdash_\alpha [c]^n_{\alpha'} : E$.
-One example typing rule:
+One example typing rule ($\circ$ public, $\bullet$ secret):
 
 \begin{prooftree}
 \AxiomC{$\vdash e : H$}
