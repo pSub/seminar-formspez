@@ -164,6 +164,9 @@ The \texttt{next} function has to fulfill the following properties:
     - `start j` -- create a new thread starting in j
 
 # Transfer rules
+
+$\mathtt{LType} = Stack(\mathtt{Level})$
+
 \begin{prooftree}
 \AxiomC{$P[i] = store x$}
 \AxiomC{$se(i) \sqcup k \leq \Gamma(x)$}
@@ -177,11 +180,32 @@ The \texttt{next} function has to fulfill the following properties:
 \end{prooftree}
 
 where $reg : P \rightharpoonup P(P)$ computes the control dependence region and
-$jun : P \rightharpoonup P$ computes the junction point.
+$jun : P \rightharpoonup P$ computes the junction point. $lift_k(st)$ is the point-wise
+extension of $\lambda k' . k \sqcup k'$.
 
 Similar rules have to be established for the other commands of the target language.
 
 # Concurrent extension
+The transfer rules are extended by the following rules:
+
+\begin{prooftree}
+\AxiomC{P[i] $\in$ SeqIns}
+\AxiomC{$se, i \vdash_{seq} s \Rightarrow t$}
+\BinaryInfC{$se, i \vdash s \Rightarrow t$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{P[i] = \texttt{start} pc}
+\AxiomC{$se(i) \leq se(pc)$}
+\BinaryInfC{$se, i \vdash s \Rightarrow s$}
+\end{prooftree}
+
+We label the program points where control flow can branch or side effects can ocour.
+
+> c ::= [x := e]$^n$ | c;c | [if e then c else c]$^n$ | [while e do c]$^n$ | [fork(c)]$^n$
+
+With this labeling we can define control dependence regions for the source langugage and derive
+them for the taget language.
 
 # sregion & tregion
 
