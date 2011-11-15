@@ -119,7 +119,7 @@ Intuition of the type judgements: $se, i \vdash s \Rightarrow t$ means if execut
 program point $i$ the type changes from $s$ to $t$ w.r.t a security environment $se$.
 
 \begin{definition}[Typable program]
-A program is typable if
+A program is typable (written $se, S \vdash P$) if
   \begin{enumerate}
   \item for all initial program points holds $S(i) = t_{init}$ and
   \item $\forall i, j \in P: (i \mapsto j) \rightarrow \exists s \in \mathtt{LType} \ . \ se, i \vdash S(i) \Rightarrow s \land S(j) \leq s$
@@ -128,6 +128,16 @@ where $S : P \rightarrow \mathtt{LType}$ and a security environment $se$.
 \end{definition}
 
 # Soundness of the type system
+
+\begin{theorem}
+If the scheduler is secure and $se, S \vdash P$, then P is noninterfering
+\end{theorem}
+
+Due to this theorem it is possible to typecheck the bytecode (which was compiled type-preserving)
+to proof the non-existence of internal timing leaks.
+
+The proof is not part of this presentation, but I'll show the \texttt{next} function
+on which the proof relies.
 
 # The next function
 
@@ -172,7 +182,6 @@ $jun : P \rightharpoonup P$ computes the junction point.
 Similar rules have to be established for the other commands of the target language.
 
 # Concurrent extension
-
 
 # sregion & tregion
 
