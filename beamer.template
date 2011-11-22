@@ -2,7 +2,7 @@ $if(legacy-header)$
 $legacy-header$
 $else$
 \documentclass{beamer}
-\usepackage[round]{natbib}
+%\usepackage[round]{natbib}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{bussproofs}
