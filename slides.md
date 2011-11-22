@@ -1,5 +1,5 @@
 % Pascal Wittmann
-% "Security of Multithreaded Programms by Compilation" \newline by Gilles Barthe, Tamara Rezk, Alejandro Russo and Andrei Sabelfeld
+% Talk about the paper \newline "Security of Multithreaded Programms by Compilation"\cite{Barthe07} \newline in the context of the seminar "Formal Specifications" \newline at TU Darmstadt\newline Supervisor Artem Starostin
 % December 1-2, 2011
 
 # Overview
@@ -256,3 +256,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - …
 
 # Conclusion / Outlook
+
+# Bibliography
+\bibliography{bibliography}{}
+\bibliographystyle{plain}
