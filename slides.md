@@ -21,7 +21,7 @@
   - The attacker can observe low-level variables
   - Sequential:
     - explicit flows: `lo := hi`
-    - implicit flows: `if hi then lo := 1`
+    - implicit flows: `if hi then lo := 1 else lo := 0`
   - Concurrent:
     - internal timing leak: \newline `if hi {sleep(100)}; lo := 1 || sleep(50); lo := 0`
     - other example: `hi := 0; lo = x || hi := private-data`
@@ -116,7 +116,7 @@ that statisfies these conditions:
 
 # Type system
 \texttt{LType} is a poset (reflexive, antisymmetric, transitiv) of local types.
-
+\newline\newline
 Intuition of the type judgements: $se, i \vdash s \Rightarrow t$ means if executing
 program point $i$ the type changes from $s$ to $t$ w.r.t a security environment $se$.
 
@@ -149,11 +149,11 @@ thread becomes visible again.
 
 The \texttt{next} function has to fulfill the following properties:
 \begin{align}
-&Dom(next) = \{i \in \mathcal{P} | H(i) \land \neg AH(i)\} \\
+&Dom(next) = \{i \in \mathcal{P}\ |\ H(i) \land \neg AH(i)\} \\
 &i, j \in Dom(next) \land i \mapsto j \Rightarrow next(i) = next(j) \\
-&i \in Dom(next) \land j \not\in Dom(next) \land i \mapsto j \Rightarrow next(i) = j \\
-&j, k \in Dom(next) \land i \not\in Dom(next) \\ \notag &\land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k) \\
-&i, j \in Dom(next) \land k \not\in Dom(next) \\ \notag &\land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k
+&i \in Dom(next) \land L(j) \land i \mapsto j \Rightarrow next(i) = j \\
+&j, k \in Dom(next) \land L(i) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k) \\
+&i, j \in Dom(next) \land L(k) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k
 \end{align}
 
 # Instantiation
@@ -170,20 +170,20 @@ The \texttt{next} function has to fulfill the following properties:
 $\mathtt{LType} = Stack(\mathtt{Level})$
 
 \begin{prooftree}
-\AxiomC{$P[i] = store x$}
+\AxiomC{$P[i] = store\ x$}
 \AxiomC{$se(i) \sqcup k \leq \Gamma(x)$}
 \BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow st$}
 \end{prooftree}
 
 \begin{prooftree}
-\AxiomC{$P[i] = ifeq j$}
+\AxiomC{$P[i] = ifeq\ j$}
 \AxiomC{$\forall j' \in reg(i), k \leq se(j')$}
 \BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)$}
 \end{prooftree}
 
-where $reg : \mathcal{P} \rightharpoonup \mathfrak{P}(\mathcal{P})$ computes the control dependence region and
-$jun : \mathcal{P} \rightharpoonup \mathcal{P}$ computes the junction point. $lift_k(st)$ is the point-wise
-extension of $\lambda k' . k \sqcup k'$.
+where $reg : \mathcal{P} \rightharpoonup \mathfrak{P}(\mathcal{P})$ computes the control dependence region.
+$lift_k(st)$ is the point-wise extension of $\lambda k' . k \sqcup k'$. $\Gamma(x)$ assigns a security level
+to each variable.
 
 Similar rules have to be established for the other commands of the target language.
 
