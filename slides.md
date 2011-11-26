@@ -34,10 +34,12 @@
   - Syntax & Semantic of multithreaded programs
     - Program
     - State & Security environment
-    - Scheduler
+    - History & Scheduler
   - Type system & it's soundness
+  - The \texttt{next} function
   - Concrete instantiation
-  - Type preserving compilation
+    - Tansfer rules
+    - Defining the \texttt{next} function
 
 # Program
 We have a set of sequential Instructions $SeqIns$ and a primitive
@@ -45,7 +47,7 @@ We have a set of sequential Instructions $SeqIns$ and a primitive
 
 \begin{definition}[Program P]
   \begin{enumerate}
-  \item A set of program points $\mathcal{P}$, with a distinguised entry point $1$ and exit point \texttt{exit}
+  \item A set of program points $\mathcal{P}$, with a distinguised entry point \texttt{1} and exit point \texttt{exit}
   \item A map from $P$ to $Ins$, where $Ins = SeqIns \cup \{start pc\}$ and $pc \in \mathcal{P} \setminus \{\mathtt{stop}\}$.
         This map is refered to as P[i].
   \end{enumerate}
@@ -82,17 +84,17 @@ with an attacker on level _low_.
      \begin{itemize}
      \item low if $se(i) = low$, written $L(i)$
      \item high if $se(i) = high$, written $H(i)$
-     \item always high if $\forall j \in \mathcal{P} . i \mapsto^* j \rightarrow se(j) = high$, written $AH(i)$
+     \item always high if $\forall j \in \mathcal{P} . (i \mapsto^* j) \rightarrow se(j) = high$, written $AH(i)$
      \end{itemize}
    \end{enumerate}
 \end{definition}
 
 Now we classify threads in:
 \begin{align*}
-s.lowT &= \{tid \in s.act | L(s.pc(tid))\} \\
-s.highT &= \{tid \in s.act | H(s.pc(tid))\} \\
-s.ahighT &= \{tid \in s.act | AH(s.pc(tid))\} \\
-s.hidT &= \{tid \in s.act | H(s.pc(tid)) \land \lnot AH(s.pc(tid))\} 
+s.lowT &= \{tid \in s.act\ |\ L(s.pc(tid))\} \\
+s.highT &= \{tid \in s.act\ |\ H(s.pc(tid))\} \\
+s.ahighT &= \{tid \in s.act\ |\ AH(s.pc(tid))\} \\
+s.hidT &= \{tid \in s.act\ |\ H(s.pc(tid)) \land \lnot AH(s.pc(tid))\} 
 \end{align*}
 
 # History & Scheduler
