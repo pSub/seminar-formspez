@@ -115,7 +115,7 @@ that statisfies these conditions:
 \end{definition}
 
 # Type system
-\texttt{LType} is a poset of local types.
+\texttt{LType} is a poset (reflexive, antisymmetric, transitiv) of local types.
 
 Intuition of the type judgements: $se, i \vdash s \Rightarrow t$ means if executing
 program point $i$ the type changes from $s$ to $t$ w.r.t a security environment $se$.
