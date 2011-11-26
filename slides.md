@@ -252,8 +252,8 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
     - This approach doesn't deal with synchronisation
 
 # Other/related solutions
-  - Volpano & Smith use a \texttt{protect(c)} method
-  - Russo & Sabelfeld use \texttt{hide} and \texttt{unhide} primitives.
+  - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} method
+  - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives.
   - Disallowing races on public data
   - …
 
