@@ -1,6 +1,6 @@
+% "Security of Multithreaded Programms by Compilation"\cite{Barthe07}
 % Pascal Wittmann
-% Talk about the paper \newline "Security of Multithreaded Programms by Compilation"\cite{Barthe07} \newline in context of the seminar "Formal Specifications" \newline at TU Darmstadt\newline Supervisor Artem Starostin
-% December 1-2, 2011
+% Seminar "Formal Specification" at TU Darmstadt \newline on December 1-2, 2011
 
 # Overview
   - Why formal methods?
