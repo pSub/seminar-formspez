@@ -148,6 +148,7 @@ function $\mathtt{next}: \mathcal{P} \rightharpoonup \mathcal{P}$ calculates the
 thread becomes visible again.
 
 The \texttt{next} function has to fulfill the following properties:
+\footnotesize
 \begin{align}
 &Dom(next) = \{i \in \mathcal{P}\ |\ H(i) \land \neg AH(i)\} \\
 &i, j \in Dom(next) \land i \mapsto j \Rightarrow next(i) = next(j) \\
