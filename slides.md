@@ -1,6 +1,6 @@
 % "Security of Multithreaded Programms by Compilation"\cite{Barthe07}
 % Pascal Wittmann
-% Seminar "Formal Specification" at TU Darmstadt \newline on December 1-2, 2011
+% Seminar "Formal Specification" on December 1-2, 2011
 
 # Overview
   - Why formal methods?
