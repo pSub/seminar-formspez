@@ -7,7 +7,7 @@ $else$
 \usepackage{bussproofs}
 \theoremstyle{definition}
 \setbeamertemplate{bibliography item}[text]
-
+\setbeamertemplate{footline}[frame number]
 $if(xetex)$
 \usepackage{ifxetex}
 \ifxetex
