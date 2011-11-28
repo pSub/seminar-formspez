@@ -207,7 +207,7 @@ We label the program points where control flow can branch or side effects can oc
 > c ::= [x := e]$^n$ | c;c | [if e then c else c]$^n$ | [while e do c]$^n$ | [fork(c)]$^n$
 
 With this labeling we can define control dependence regions for the source langugage (\texttt{sregion}) and derive
-them for the taget language (\texttt{tregion}).
+them for the target language (\texttt{tregion}).
 
 # sregion & tregion
 \begin{definition}[sregion]
