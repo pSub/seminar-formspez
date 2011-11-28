@@ -260,5 +260,6 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 # Conclusion / Outlook
 
 # Bibliography
-\bibliography{bibliography}{}
+%FIXME: allowframebreaks
 \bibliographystyle{plain}
+\bibliography{bibliography}{}
