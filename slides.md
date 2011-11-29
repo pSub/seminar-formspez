@@ -220,6 +220,12 @@ $tregion(n)$ is defined for $[c]^n$ as the set of instructions/labels obtained b
 If c is \texttt{while} then $n \in tregion(n)$.
 \end{definition}
 
+Excerpt of the compilation function C:
+\footnotesize
+%FIXME: Get this readable
+`C(c) = let (lc, T) = S(c, []); in goto (#T+2) :: T :: lc :: return` \newline
+`S(fork(c), T) = let (lc, T') = S(c, T); in (start (#T' + 2), T' :: lc :: return)`
+
 # junction points & next function
 
 \begin{definition}[junction point]
@@ -246,11 +252,11 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 \end{definition}
 
 # Adaption to the JVM
-  - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system
-  - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible
+  - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system.
+  - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible.
   - Issues
     - Method calls have a big-step semantic
-    - This approach doesn't deal with synchronisation
+    - This approach does not deal with synchronisation
 
 # Other/related solutions
   - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} method
@@ -259,6 +265,14 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - …
 
 # Conclusion / Outlook
+  - Proof of noninterference for a concurrent low-level language
+  - Proof of type-preserving compilation in context of concurrency
+  - Scheduler is driven by the security environment
+  - Independent of the scheduling algorithm
+  - No useful secure programs are rejected
+  - No need to trust the compiler, checking can be done at target level (without running the program)
+  - Programmer does not need to know about internal timing leaks
+  - No restrictions on dynamic thread creation
 
 # Bibliography
 %FIXME: allowframebreaks
