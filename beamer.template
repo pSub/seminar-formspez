@@ -7,6 +7,8 @@ $else$
 \usepackage{bussproofs}
 \theoremstyle{definition}
 \usepackage{bibentry}
+
+\usetheme{Darmstadt}
 \setbeamertemplate{bibliography item}[text]
 \setbeamertemplate{footline}[frame number]
 \setbeamercovered{transparent} % Transparent overlays
@@ -109,6 +111,7 @@ $endif$
 $if(title)$
 \begin{frame}{}
   \titlepage
+\end{frame}
 $endif$
 
 $body$

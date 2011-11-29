@@ -2,21 +2,28 @@
 % Pascal Wittmann
 % Seminar "Formal Specification" \newline December 1-2, 2011
 
-# Overview
+### Overview
   - Why formal methods?
   - Security problems of multithreaded programs.
   - Discussion of a solution.
   - Other/related solutions.
   - Conclusion / Outlook.
 
-# Why formal methods?
+####
+
+# Introduction
+## Why formal methods?
+### Why formal methods?
   - Modeling precisely a part of the world
   - Formulate the problem unambiguous
   - Leaving unimportant things underspecified
   - Improve the understanding of the problem
   - Use abstraction to cover a large number of cases
 
-# Security problems of multithreaded programs
+####
+
+## Security problems of multithreaded programs
+### Security problems of multithreaded programs
   - There are private (_high_) and public (_low_) variables
   - The attacker can observe low-level variables
   - Sequential:
@@ -30,7 +37,10 @@
     - Applicable on a wide rage of schedulers and bytecode
     - Verification without running the program
 
+####
+    
 # Discussion of a solution
+### Discussion of a solution
   - Syntax & Semantic of multithreaded programs
     - Program
     - State & Security environment
@@ -41,7 +51,10 @@
     - Tansfer rules
     - Defining the \texttt{next} function
 
-# Program
+####
+    
+## Program
+### Program
 We have a set of sequential Instructions $SeqIns$ and a primitive
 \texttt{start} _pc_ that spawns a new thread.
 
@@ -56,7 +69,10 @@ We have a set of sequential Instructions $SeqIns$ and a primitive
 Further, a relation $\mapsto \subseteq \mathcal{P} \times \mathcal{P}$ that describes possible successor instructions
 and it's reflexive and transitive closure $\mapsto^*$.
 
-# State
+####
+
+## State
+### State
 We have a set of local states, \texttt{LocState} and a global memory \texttt{GMemory}.
 In Addition we have a set of thread identifiers \texttt{Thread}.
 
@@ -73,7 +89,10 @@ Accessors for a state $s$:
   - s.act is the set of active threads
   - s.pc(tid) retrieves the current program point of the thread tid
 
-# Security environment
+####
+  
+## Security environment
+### Security environment
 We assume a set of levels \texttt{Level} = \{_low_, _high_\} where _low_ < _high_
 with an attacker on level _low_.
 
@@ -97,8 +116,10 @@ s.ahighT &= \{tid \in s.act\ |\ AH(s.pc(tid))\} \\
 s.hidT &= \{tid \in s.act\ |\ H(s.pc(tid)) \land \lnot AH(s.pc(tid))\} 
 \end{align*}
 
-# History & Scheduler
+####
 
+## History & Scheduler
+### History & Scheduler
 \begin{definition}[History]
 A History \texttt{History} is a list of pairs $(tid, l)$, where tid $\in$ \texttt{Thread}
 and $l \in$ \texttt{Level}.
@@ -114,7 +135,10 @@ that statisfies these conditions:
    \end{enumerate}
 \end{definition}
 
-# Type system
+####
+
+## Type system
+### Type system
 \texttt{LType} is a poset (reflexive, antisymmetric, transitiv) of local types.
 \newline\newline
 Intuition of the type judgements: $se, i \vdash s \Rightarrow t$ means if executing
@@ -129,8 +153,10 @@ A program is typable (written $se, \mathcal{S} \vdash P$) if
 where $\mathcal{S} : \mathcal{P} \rightarrow \mathtt{LType}$ and a security environment $se$.
 \end{definition}
 
-# Soundness of the type system
+####
 
+## Soundness of the type system
+### Soundness of the type system
 \begin{definition}[Noninterfering program]
 $\sim_g$ is a indistinguishability relation on global memories. A program is noninterfering iff for all global memories
 $\mu_1, \mu_1', \mu_2, \mu_2'$ the following holds
@@ -147,8 +173,10 @@ to proof the non-existence of internal timing leaks.
 The proof is not part of this presentation, but I'll show the \texttt{next} function
 on which the proof relies.
 
-# The next function
+####
 
+## The next function
+### The next function
 If the execution of program point $i$ results in a high thread, the
 function $\mathtt{next}: \mathcal{P} \rightharpoonup \mathcal{P}$ calculates the program point in which the
 thread becomes visible again.
@@ -163,7 +191,10 @@ The \texttt{next} function has to fulfill the following properties:
 &i, j \in Dom(next) \land L(k) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k
 \end{align}
 
-# Instantiation
+####
+
+## Instantiation
+### Instantiation
   - Simple langugage with `if`, `;`, `:=`, `while` and `fork`
   - Assembly 
     - `push n` -- push value on the stack
@@ -172,8 +203,10 @@ The \texttt{next} function has to fulfill the following properties:
     - `goto j` / `ifeq j` -- un-/conditional jump to j
     - `start j` -- create a new thread starting in j
 
-# Transfer rules
-
+####
+    
+## Transfer rules
+### Transfer rules
 $\mathtt{LType} = Stack(\mathtt{Level})$
 
 \begin{prooftree}
@@ -194,7 +227,10 @@ to each variable.
 
 Similar rules have to be established for the other commands of the target language.
 
-# Concurrent extension
+####
+
+## Concurrent extension
+### Concurrent extension
 The transfer rules are extended by the following rules:
 
 \begin{prooftree}
@@ -216,7 +252,10 @@ We label the program points where control flow can branch or side effects can oc
 With this labeling we can define control dependence regions for the source langugage (\texttt{sregion}) and derive
 them for the target language (\texttt{tregion}).
 
-# sregion & tregion
+####
+
+## sregion & tregion
+### sregion & tregion
 \begin{definition}[sregion]
 $sregion(n)$ is defined as the set of labels that are inside a branching command $[c]^n$, except those inside \texttt{fork}.
 \end{definition}
@@ -232,8 +271,10 @@ Excerpt of the compilation function C:
 `C(c) = let (lc, T) = S(c, []); in goto (#T+2) :: T :: lc :: return` \newline
 `S(fork(c), T) = let (lc, T') = S(c, T); in (start (#T' + 2), T' :: lc :: return)`
 
-# junction points & next function
+####
 
+## junction points & next function
+### junction points & next function
 \begin{definition}[junction point]
 For every branching point $[c]^n$ in the source program we define
 \begin{align*}
@@ -257,14 +298,20 @@ For alle branching program points c such that $\vdash_{\circ}[n]^n_\bullet$ $nex
 $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 \end{definition}
 
-# Adaption to the JVM
+####
+
+## Adaption to the JVM
+### Adaption to the JVM
   - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system.
   - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible.
   - Issues
     - Method calls have a big-step semantic
     - This approach does not deal with synchronization
 
+####
+    
 # Other/related solutions
+### Other/related solutions
   - Protection/hiding based approaches
     - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} primitive
     - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives
@@ -273,8 +320,11 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - External-timing based approaches
     - here the attacker is more powerful: he can measure execution time
     - this causes much more restrictiveness (e.g. loops with secret guards are disallowed)
+
+####
     
-# Comparison with Zdancewi and Myres\cite{Zdancewic}
+## Comparison with Zdancewi and Myres\cite{Zdancewic}
+### Comparison with Zdancewi and Myres\cite{Zdancewic}
   - Introduces a relative complex language $\lambda^{PAR}_{SEC}$
   - Also uses a type system to enforce security
   - Uses the same notion of noninterference.
@@ -283,8 +333,11 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
     Thus it rejects Programs like `lo := 1 || lo := 0`
   - In contrast to the paper discussed here, $\lambda^{PAR}_{SEC}$ provides
     support for synchronization using *join patterns*
+
+####
     
 # Conclusion / Outlook
+### Conclusion / Outlook
   - Proof of noninterference for a concurrent low-level language
   - Proof of type-preserving compilation in context of concurrency
   - Scheduler is driven by the security environment
@@ -295,7 +348,12 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - No restrictions on dynamic thread creation
   - What needs to be done? Extension for real world languages e.g. adding support for synchronization
 
+####
+  
 # Bibliography
+### Bibliography
 %FIXME: allowframebreaks
 \bibliographystyle{plain}
 \bibliography{bibliography}{}
+
+####
