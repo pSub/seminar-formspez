@@ -259,9 +259,13 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
     - This approach does not deal with synchronisation
 
 # Other/related solutions
-  - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} primitive
-  - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives
-  - Disallowing races on public data
+  - Protection/hiding based approaches
+    - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} primitive
+    - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives
+  - Low-determinism approaches 
+    - Disallowing races on public data which rejects many useful programs
+  - External-timing based approaches
+    - here the attacker is more powerful: he can use a clock to measure execution time
   - …
 
 # Conclusion / Outlook
