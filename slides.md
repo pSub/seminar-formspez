@@ -241,7 +241,7 @@ One example typing rule ($\circ$ public, $\bullet$ secret):
 
 \begin{prooftree}
 \AxiomC{$\vdash e : H$}
-\AxiomC{$\vdash_\bullet c :e$}
+\AxiomC{$\vdash_\bullet c :E$}
 \AxiomC{$E = lift_H(E, sregion(n))$}
 \TrinaryInfC{$\vdash_\circ [while \ e \ do \ c]^n_\bullet : E$}
 \end{prooftree}
@@ -256,7 +256,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible.
   - Issues
     - Method calls have a big-step semantic
-    - This approach does not deal with synchronisation
+    - This approach does not deal with synchronization
 
 # Other/related solutions
   - Protection/hiding based approaches
