@@ -299,16 +299,6 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 \end{definition}
 
 ####
-
-## Adaption to the JVM
-### Adaption to the JVM
-  - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system.
-  - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible.
-  - Issues
-    - Method calls have a big-step semantic
-    - This approach does not deal with synchronization
-
-####
     
 # Other/related solutions
 ### Other/related solutions
@@ -337,6 +327,16 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 ####
     
 # Conclusion / Outlook
+## Adaption to the JVM
+### Adaption to the JVM
+  - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system.
+  - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible.
+  - Issues
+    - Method calls have a big-step semantic
+    - This approach does not deal with synchronization
+
+####
+
 ### Conclusion / Outlook
   - Proof of noninterference for a concurrent low-level language
   - Proof of type-preserving compilation in context of concurrency
