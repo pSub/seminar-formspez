@@ -265,7 +265,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - Low-determinism approaches 
     - Disallowing races on public data which rejects many useful programs
   - External-timing based approaches
-    - here the attacker is more powerful: he can use a clock to measure execution time
+    - here the attacker is more powerful: he can measure execution time
   - …
 
 # Conclusion / Outlook
