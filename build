@@ -1,6 +1,7 @@
 #!/bin/sh
 pandoc --template beamer.template \
        --variable institute="TU Darmstadt" \
+       --variable subtitle="Paper written by Barthe, Rezk, Russo and Sabelfeld \cite{Barthe07}" \
        -i slides.md -o slides-md.tex
 perl -pe 's/\\section/\\end{frame}\n\\begin{frame}/' -i slides-md.tex
 perl -pe 's/\\end{document}/\\end{frame}\n\\end{document}/' -i slides-md.tex

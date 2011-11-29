@@ -6,8 +6,10 @@ $else$
 \usepackage{amsthm}
 \usepackage{bussproofs}
 \theoremstyle{definition}
+\usepackage{bibentry}
 \setbeamertemplate{bibliography item}[text]
 \setbeamertemplate{footline}[frame number]
+\setbeamercovered{transparent} % Transparent overlays
 $if(xetex)$
 \usepackage{ifxetex}
 \ifxetex
@@ -78,6 +80,10 @@ $endfor$
 
 $if(title)$
 \title{$title$}
+$endif$
+
+$if(subtitle)$
+\subtitle{$subtitle$}
 $endif$
 
 \author{$for(author)$$author$$sep$\\$endfor$}
