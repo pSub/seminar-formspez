@@ -259,8 +259,8 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
     - This approach does not deal with synchronisation
 
 # Other/related solutions
-  - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} method
-  - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives.
+  - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} primitive
+  - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives
   - Disallowing races on public data
   - …
 
@@ -273,6 +273,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - No need to trust the compiler, checking can be done at target level (without running the program)
   - Programmer does not need to know about internal timing leaks
   - No restrictions on dynamic thread creation
+  - What needs to be done? Extension for real world languages e.g. adding support for synchronization
 
 # Bibliography
 %FIXME: allowframebreaks
