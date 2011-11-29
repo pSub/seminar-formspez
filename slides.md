@@ -131,6 +131,12 @@ where $\mathcal{S} : \mathcal{P} \rightarrow \mathtt{LType}$ and a security envi
 
 # Soundness of the type system
 
+\begin{definition}[Noninterfering program]
+$\sim_g$ is a indistinguishability relation on global memories. A program is noninterfering iff for all global memories
+$\mu_1, \mu_1', \mu_2, \mu_2'$ the following holds
+\[(\mu_1 \sim_g \mu_2 \land P,\mu_1 \Downarrow \mu_1' \land P, \mu_2 \Downarrow \mu_2') \rightarrow \mu_1' \sim_g \mu_2'\]
+\end{definition}
+
 \begin{theorem}
 If the scheduler is secure and $se, \mathcal{S} \vdash P$, then P is noninterfering
 \end{theorem}
@@ -262,12 +268,22 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - Protection/hiding based approaches
     - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} primitive
     - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives
-  - Low-determinism approaches 
-    - Disallowing races on public data which rejects many useful programs
+  - Low-determinism approaches
+    - Zdancewic and Myres disallow races on public data\cite{Zdancewic}
   - External-timing based approaches
     - here the attacker is more powerful: he can measure execution time
-  - …
-
+    - this causes much more restrictiveness (e.g. loops with secret guards are disallowed)
+    
+# Comparison with Zdancewi and Myres\cite{Zdancewic}
+  - Introduces a relative complex language $\lambda^{PAR}_{SEC}$
+  - Also uses a type system to enforce security
+  - Uses the same notion of noninterference.
+  - Observational determinism is defined as the indistinguishability of memory access traces
+    \begin{align*}(m \approx_\zeta m' \land m  \Downarrow T \land m \Downarrow T') \Rightarrow T \approx_\zeta T'\end{align*}
+    Thus it rejects Programs like `lo := 1 || lo := 0`
+  - In contrast to the paper discussed here, $\lambda^{PAR}_{SEC}$ provides
+    support for synchronization using *join patterns*
+    
 # Conclusion / Outlook
   - Proof of noninterference for a concurrent low-level language
   - Proof of type-preserving compilation in context of concurrency
