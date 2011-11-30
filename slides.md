@@ -306,7 +306,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
     - Volpano & Smith \cite{SmithVolpano1998}\cite{SmithVolpano1999}\cite{SmithVolpano1996} use a \texttt{protect(c)} primitive
     - Russo & Sabelfeld \cite{RussoSabelfeld2006} use \texttt{hide} and \texttt{unhide} primitives
   - Low-determinism approaches
-    - Zdancewic and Myres disallow races on public data\cite{Zdancewic}
+    - Zdancewic and Myres \cite{Zdancewic} disallow races on public data
   - External-timing based approaches
     - here the attacker is more powerful: he can measure execution time
     - this causes much more restrictiveness (e.g. loops with secret guards are disallowed)
