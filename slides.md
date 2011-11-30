@@ -2,7 +2,7 @@
 % Pascal Wittmann
 % Seminar "Formal Specification" \newline December 1-2, 2011
 
-### Overview
+### Outline
   - Why formal methods?
   - Security problems of multithreaded programs.
   - Discussion of a solution.
@@ -266,10 +266,11 @@ If c is \texttt{while} then $n \in tregion(n)$.
 \end{definition}
 
 Excerpt of the compilation function C:
-\footnotesize
-%FIXME: Get this readable
-`C(c) = let (lc, T) = S(c, []); in goto (#T+2) :: T :: lc :: return` \newline
-`S(fork(c), T) = let (lc, T') = S(c, T); in (start (#T' + 2), T' :: lc :: return)`
+
+`C(c) = let (lc, T) = S(c, []);` \newline
+\hspace*{15mm} `in goto (#T + 2) :: T :: lc :: return` \newline
+`S(fork(c), T) = let (lc, T') = S(c, T);` \newline
+\hspace*{15mm} `in (start (#T' + 2), T' :: lc :: return)`
 
 ####
 
