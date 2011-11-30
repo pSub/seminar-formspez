@@ -31,7 +31,7 @@
     - implicit flows: `if hi then lo := 1 else lo := 0`
   - Concurrent:
     - internal timing leak: \newline `if hi {sleep(100)}; lo := 1 || sleep(50); lo := 0`
-    - other example: `hi := 0; lo = x || hi := private-data`
+    - other example: `hi := 0; lo = hi || hi := private-data`
   - External timing leaks are not covered
   - Advantages of formal methods
     - Applicable on a wide rage of schedulers and bytecode
