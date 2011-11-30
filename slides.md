@@ -53,7 +53,7 @@
 
 ####
     
-## Program
+## Syntax & Semantic of multithreaded programs
 ### Program
 We have a set of sequential Instructions $SeqIns$ and a primitive
 \texttt{start} _pc_ that spawns a new thread.
@@ -71,7 +71,7 @@ and it's reflexive and transitive closure $\mapsto^*$.
 
 ####
 
-## State
+## Syntax & Semantic of multithreaded programs
 ### State
 We have a set of local states, \texttt{LocState} and a global memory \texttt{GMemory}.
 In Addition we have a set of thread identifiers \texttt{Thread}.
@@ -91,7 +91,7 @@ Accessors for a state $s$:
 
 ####
   
-## Security environment
+## Syntax & Semantic of multithreaded programs
 ### Security environment
 We assume a set of levels \texttt{Level} = \{_low_, _high_\} where _low_ < _high_
 with an attacker on level _low_.
@@ -118,7 +118,7 @@ s.hidT &= \{tid \in s.act\ |\ H(s.pc(tid)) \land \lnot AH(s.pc(tid))\}
 
 ####
 
-## History & Scheduler
+## Syntax & Semantic of multithreaded programs
 ### History & Scheduler
 \begin{definition}[History]
 A History \texttt{History} is a list of pairs $(tid, l)$, where tid $\in$ \texttt{Thread}
@@ -137,7 +137,7 @@ that statisfies these conditions:
 
 ####
 
-## Type system
+## Type system & it's soundness
 ### Type system
 \texttt{LType} is a poset (reflexive, antisymmetric, transitiv) of local types.
 \newline\newline
@@ -155,7 +155,7 @@ where $\mathcal{S} : \mathcal{P} \rightarrow \mathtt{LType}$ and a security envi
 
 ####
 
-## Soundness of the type system
+## Type system & it's soundness
 ### Soundness of the type system
 \begin{definition}[Noninterfering program]
 $\sim_g$ is a indistinguishability relation on global memories. A program is noninterfering iff for all global memories
@@ -194,7 +194,7 @@ The \texttt{next} function has to fulfill the following properties:
 ####
 
 ## Instantiation
-### Instantiation
+### Source and target language
   - Simple langugage with `if`, `;`, `:=`, `while` and `fork`
   - Assembly 
     - `push n` -- push value on the stack
@@ -205,7 +205,7 @@ The \texttt{next} function has to fulfill the following properties:
 
 ####
     
-## Transfer rules
+## Instantiation
 ### Transfer rules
 $\mathtt{LType} = Stack(\mathtt{Level})$
 
@@ -229,7 +229,7 @@ Similar rules have to be established for the other commands of the target langua
 
 ####
 
-## Concurrent extension
+## Instantiation
 ### Concurrent extension
 The transfer rules are extended by the following rules:
 
@@ -254,7 +254,7 @@ them for the target language (\texttt{tregion}).
 
 ####
 
-## sregion & tregion
+## Instantiation
 ### sregion & tregion
 \begin{definition}[sregion]
 $sregion(n)$ is defined as the set of labels that are inside a branching command $[c]^n$, except those inside \texttt{fork}.
@@ -274,7 +274,7 @@ Excerpt of the compilation function C:
 
 ####
 
-## junction points & next function
+## Instantiation
 ### junction points & next function
 \begin{definition}[junction point]
 For every branching point $[c]^n$ in the source program we define
@@ -314,7 +314,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 
 ####
     
-## Comparison with Zdancewi and Myres\cite{Zdancewic}
+## Other/related solutions
 ### Comparison with Zdancewi and Myres\cite{Zdancewic}
   - Introduces a relative complex language $\lambda^{PAR}_{SEC}$
   - Also uses a type system to enforce security
@@ -328,7 +328,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 ####
     
 # Conclusion / Outlook
-## Adaption to the JVM
+## Outlook
 ### Adaption to the JVM
   - JVML's sequential type system is compatible with bytecode verifikation, thus it's compatible with the concurrent type system.
   - The scheduler is mostly left unspecified, thus introducing a secure scheduler is possible.
@@ -338,7 +338,8 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 
 ####
 
-### Conclusion / Outlook
+## Conclusion
+### Conclusion
   - Proof of noninterference for a concurrent low-level language
   - Proof of type-preserving compilation in context of concurrency
   - Scheduler is driven by the security environment
