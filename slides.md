@@ -108,7 +108,7 @@ with an attacker on level _low_.
    \end{enumerate}
 \end{definition}
 
-Now we classify threads in:
+Now we classify threads in (where s is a \texttt{ConcState}):
 \begin{align*}
 s.lowT &= \{tid \in s.act\ |\ L(s.pc(tid))\} \\
 s.highT &= \{tid \in s.act\ |\ H(s.pc(tid))\} \\
@@ -222,8 +222,7 @@ $\mathtt{LType} = Stack(\mathtt{Level})$
 \end{prooftree}
 
 where $reg : \mathcal{P} \rightharpoonup \mathfrak{P}(\mathcal{P})$ computes the control dependence region.
-$lift_k(st)$ is the point-wise extension of $\lambda k' . k \sqcup k'$. $\Gamma(x)$ assigns a security level
-to each variable.
+$lift_k(st)$ is the point-wise extension of $\lambda k' . k \sqcup k'$. $\Gamma(x)$ expresses the chosen security policy by assigning a security level to each variable.
 
 Similar rules have to be established for the other commands of the target language.
 
@@ -318,7 +317,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
 ### Comparison with Zdancewi and Myres\cite{Zdancewic}
   - Introduces a relative complex language $\lambda^{PAR}_{SEC}$
   - Also uses a type system to enforce security
-  - Uses the same notion of noninterference.
+  - Uses the same notion of noninterference
   - Observational determinism is defined as the indistinguishability of memory access traces
     \begin{align*}(m \approx_\zeta m' \land m  \Downarrow T \land m \Downarrow T') \Rightarrow T \approx_\zeta T'\end{align*}
     Thus it rejects Programs like `lo := 1 || lo := 0`
