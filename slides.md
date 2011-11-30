@@ -61,7 +61,7 @@ We have a set of sequential Instructions $SeqIns$ and a primitive
 \begin{definition}[Program P]
   \begin{enumerate}
   \item A set of program points $\mathcal{P}$, with a distinguised entry point \texttt{1} and exit point \texttt{exit}
-  \item A map from $P$ to $Ins$, where $Ins = SeqIns \cup \{start pc\}$ and $pc \in \mathcal{P} \setminus \{\mathtt{stop}\}$.
+  \item A map from $\mathcal{P}$ to $Ins$, where $Ins = SeqIns \cup \{start pc\}$ and $pc \in \mathcal{P} \setminus \{\mathtt{exit}\}$.
         This map is refered to as P[i].
   \end{enumerate}
 \end{definition}
@@ -99,7 +99,7 @@ with an attacker on level _low_.
 \begin{definition}[Security environment]
    \begin{enumerate}
    \item A function $se : \mathcal{P} \rightarrow \mathtt{Level}$
-   \item A program point $i \in P$ is:
+   \item A program point $i \in \mathcal{P}$ is:
      \begin{itemize}
      \item low if $se(i) = low$, written $L(i)$
      \item high if $se(i) = high$, written $H(i)$
@@ -319,7 +319,7 @@ $\forall k \in tregion(n)\ . \ next(k) = jun(n)$.
   - Also uses a type system to enforce security
   - Uses the same notion of noninterference
   - Observational determinism is defined as the indistinguishability of memory access traces
-    \begin{align*}(m \approx_\zeta m' \land m  \Downarrow T \land m \Downarrow T') \Rightarrow T \approx_\zeta T'\end{align*}
+    \begin{align*}(m \approx_\zeta m' \land m  \Downarrow T \land m' \Downarrow T') \Rightarrow T \approx_\zeta T'\end{align*}
     Thus it rejects Programs like `lo := 1 || lo := 0`
   - In contrast to the paper discussed here, $\lambda^{PAR}_{SEC}$ provides
     support for synchronization using *join patterns*
