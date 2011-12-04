@@ -139,7 +139,7 @@ that statisfies these conditions:
 
 ## Type system & it's soundness
 ### Type system
-\texttt{LType} is a poset (reflexive, antisymmetric, transitiv) of local types.
+\texttt{LType} is a poset ($\leq$ is reflexive, antisymmetric, transitiv) of local types.
 \newline\newline
 Intuition of the type judgements: $se, i \vdash s \Rightarrow t$ means if executing
 program point $i$ the type changes from $s$ to $t$ w.r.t a security environment $se$.
@@ -147,10 +147,10 @@ program point $i$ the type changes from $s$ to $t$ w.r.t a security environment 
 \begin{definition}[Typable program]
 A program is typable (written $se, \mathcal{S} \vdash P$) if
   \begin{enumerate}
-  \item for all initial program points holds $S(i) = t_{init}$ and
+  \item for all initial program points holds $\mathcal{S}(i) = t_{init}$ and
   \item $\forall i, j \in \mathcal{P}: (i \mapsto j) \rightarrow \exists s \in \mathtt{LType} \ . \ se, i \vdash \mathcal{S}(i) \Rightarrow s \land \mathcal{S}(j) \leq s$
   \end{enumerate}
-where $\mathcal{S} : \mathcal{P} \rightarrow \mathtt{LType}$ and a security environment $se$.
+where $\mathcal{S} : \mathcal{P} \rightarrow \mathtt{LType}$ and $se$ a security environment.
 \end{definition}
 
 ####
