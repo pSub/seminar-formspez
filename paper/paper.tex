@@ -23,6 +23,25 @@
 {\bf Here comes the abstract!}
 
 \section{Introduction}
+Barthe, Rezk, Russo and Sabelfeld introduced with
+their paper \cite{Barthe07} a framework to guarantee
+noninterference in multithreaded programs at byte-code
+level. Noninterference is a security property which
+says that a program does not leak sensitive information
+to an adversary. Since more and more (mobile) devices handle
+an increasing number of tasks, multithreading is widely used
+to prevent lock ups (when e.g. establishing a 
+network-connection). But often programs that are secure when they
+are executed sequentially, leak information when they are
+composed in parallel. This leads to an attractive channel of
+information leakage.
+
+The idea of Barthe et. al. was to close this channel by compiling
+type information into the byte-code, which cause the scheduler to
+treat the secure parts in a different way. Since many mobile
+platforms already use some byte-code (e.g. Android a modification
+of the JVM byte-code).
+
 \section{Discussion of a solution}
 \section{Related Work}
 \section{Conclusion \& Outlook}
