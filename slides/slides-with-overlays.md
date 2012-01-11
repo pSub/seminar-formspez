@@ -41,7 +41,7 @@
     
 # Discussion of a solution
 ### Discussion of a solution
-  - Syntax & Semantic of multithreaded programs
+  - Syntax & Semantics of multithreaded programs
     - Program
     - State & Security environment
     - History & Scheduler
@@ -53,7 +53,7 @@
 
 ####
     
-## Syntax & Semantic of multithreaded programs
+## Syntax & Semantics of multithreaded programs
 ### Program
 We have a set of sequential Instructions $SeqIns$ and a primitive
 \texttt{start} _pc_ that spawns a new thread. \pause
@@ -71,7 +71,7 @@ and it's reflexive and transitive closure $\mapsto^*$.
 
 ####
 
-## Syntax & Semantic of multithreaded programs
+## Syntax & Semantics of multithreaded programs
 ### State
 We have a set of local states, \texttt{LocState} and a global memory \texttt{GMemory}.
 In Addition we have a set of thread identifiers \texttt{Thread}. \pause
@@ -91,7 +91,7 @@ Accessors for a state $s$:
 
 ####
   
-## Syntax & Semantic of multithreaded programs
+## Syntax & Semantics of multithreaded programs
 ### Security environment
 We assume a set of levels \texttt{Level} = \{_low_, _high_\} where _low_ < _high_
 with an attacker on level _low_. \pause
@@ -118,7 +118,7 @@ s.hidT &= \{tid \in s.act\ |\ H(s.pc(tid)) \land \lnot AH(s.pc(tid))\}
 
 ####
 
-## Syntax & Semantic of multithreaded programs
+## Syntax & Semantics of multithreaded programs
 ### History & Scheduler
 \begin{definition}[History]
 A History \texttt{History} is a list of pairs $(tid, l)$, where tid $\in$ \texttt{Thread}
