@@ -60,6 +60,21 @@ concrete example.
 
 \subsection{Syntax and Semantics of multithreaded programs}
 \label{sec:syntaxsemantics}
+A program is viewed as an abstract thing, which consists of a set of
+program points $\mathcal{P}$ with a distinguished entry ($1$) and exit
+(\texttt{exit}) point and a function that maps program points to
+instructions.
+
+These instructions are not further specified, but contain an instruction
+to start a new thread (\texttt{start \textit{pc}} where pc is the start
+instruction of the new thread).
+
+Further there is a relation $\mapsto$ that describes possible successor
+instructions. \texttt{exit} is the only instructions with no successor
+and \texttt{start \textit{pc}} may only have a single successor (the
+following program point).
+
+
 \subsection{Type system}
 \label{sec:typesystem}
 \subsection{Soundness}
