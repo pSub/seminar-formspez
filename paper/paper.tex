@@ -87,7 +87,17 @@ levels. A program point $i$ is called high if $se(i) = high$, low if $se(i)
 = low$ and always high if all points $j$ reachable (according to $\mapsto$)
 from $i$ satisfy $se(j) = i$ and $i$ is a high program point.
 
-Now we come to the semantics part. 
+Now we come to the semantics part. The main idea is to build a the semantics
+for multithreaded programs by combining the semantics for sequential programs
+with a scheduler.
+
+All active\footnote{a thread is active from \texttt{start \textit{pc}} until
+it reaches the \texttt{exit} point} threads are collected in a set $Thead$.
+The state of the concurrent running threads is defined as the product of
+the partial function space $(Thread \rightharpoonup LocState)$ and the set of
+global memories $GMemory$. Where $LocState$ is the internal memory of a
+thread, from there no information can leak and the $GMemory$ is the critical
+part of the system, because it is a memory shared between all active threads.
 
 \subsection{Type system}
 \label{sec:typesystem}
