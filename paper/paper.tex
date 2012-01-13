@@ -80,6 +80,13 @@ w.l.o.g into $\{low, high\}$, where $low < high$, by mapping elements
 that are no more sensitive than $k$ to $low$ and all other elements
 including incomparable ones to $high$.
 
+To connect programs and security levels, a \textit{security environment}
+(se) is defined, which is used to prevent flows over implicit channels.
+A security environment is a function that maps program points to security
+levels. A program point $i$ is called high if $se(i) = high$, low if $se(i)
+= low$ and always high if all points $j$ reachable (according to $\mapsto$)
+from $i$ satisfy $se(j) = i$ and $i$ is high.
+
 \subsection{Type system}
 \label{sec:typesystem}
 \subsection{Soundness}
