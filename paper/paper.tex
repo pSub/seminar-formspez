@@ -133,6 +133,13 @@ for a wide class of schedulers. A scheduler is in this class iff it can be
 modeled as a function $pickt: ConcState \times History \rightharpoonup Thread$
 which satisfies the following constraints:
 
+\begin{enumerate}
+\item It always picks an active thread
+\item If there is a hidden thread, always choose high or always high threads
+\item Only use low information and the low part of the history to choose a 
+      new thread
+\end{enumerate}
+
 \subsection{Type system}
 \label{sec:typesystem}
 \subsection{Soundness}
