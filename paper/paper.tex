@@ -122,6 +122,11 @@ these hidden threads, the scheduler will be modified to treat these threads
 in a special way. This will be done by 'hiding' these threads, therefore comes
 the name of them.
 
+To complete our multithreaded setup we need a scheduler. The scheduler will
+operate on histories. A history is a list of pairs $(tid, l$), where $tid \in
+Thread$ and $l \in Level$. In this history all threads chosen by the scheduler
+are recorded.
+
 \subsection{Type system}
 \label{sec:typesystem}
 \subsection{Soundness}
