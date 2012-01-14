@@ -127,6 +127,11 @@ operate on histories. A history is a list of pairs $(tid, l$), where $tid \in
 Thread$ and $l \in Level$. In this history all threads chosen by the scheduler
 are recorded.
 
+At this point no concrete scheduler is defined to make the framework applicable
+for a wide class of schedulers. A scheduler is in this class iff it can be
+modeled as a function $pickt: ConcState \times History \rightharpoonup Thread$
+which satisfies the following constraints:
+
 \subsection{Type system}
 \label{sec:typesystem}
 \subsection{Soundness}
