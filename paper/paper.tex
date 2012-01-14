@@ -93,11 +93,12 @@ with a scheduler.
 
 All active\footnote{a thread is active from \texttt{start \textit{pc}} until
 it reaches the \texttt{exit} point} threads are collected in a set $Thead$.
-The state of the concurrent running threads is defined as the product of
-the partial function space $(Thread \rightharpoonup LocState)$ and the set of
-global memories $GMemory$. Where $LocState$ is the internal memory of a
-thread, from there no information can leak and the $GMemory$ is the critical
-part of the system, because it is a memory shared between all active threads.
+The state of the concurrent running threads ($ConcState$) is defined as the
+product of the partial function space $(Thread \rightharpoonup LocState)$
+and the set of global memories $GMemory$. Where $LocState$ is the internal
+memory of a thread, from there no information can leak and the $GMemory$ is
+the critical part of the system, because it is a memory shared between all
+active threads.
 
 At this point a first simplification can be made. Looking a state $s$ we can
 first extract the active threads (\texttt{s.act}) by taking the domain of the first
