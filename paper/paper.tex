@@ -99,6 +99,29 @@ global memories $GMemory$. Where $LocState$ is the internal memory of a
 thread, from there no information can leak and the $GMemory$ is the critical
 part of the system, because it is a memory shared between all active threads.
 
+At this point a first simplification can be made. Looking a state $s$ we can
+first extract the active threads (\texttt{s.act}) by taking the domain of the first
+component. According to a security environment we can classify these threads,
+with respect to their current program point (\texttt{s.pc(tid)} where $tid \in Thread$),
+into \textit{low} threads iff the current program point is low. In \textit{high}
+threads iff the current program point is high. In \textit{always high} threads
+iff the current program point is always high and in \textit{hidden} threads, iff
+the current program point is high but not always high.
+
+The latte two are the interesting ones. If a thread is \textit{always high} it
+can not leaks any information into low, because it never only gets in touch
+with low program points. So these threads can safely be interleaved by the
+scheduler.
+
+The \textit{hidden} threads are the ones we have to care about. These contain
+obviously high information in the current program point, but have afterwards
+instructions that deal with low information. Since the attacker can watch the
+low part of the memory, chances are good that he can deduce high information
+through changing low outputs. To prevent indirect flows that are introduced by
+these hidden threads, the scheduler will be modified to treat these threads
+in a special way. This will be done by 'hiding' these threads, therefore comes
+the name of them.
+
 \subsection{Type system}
 \label{sec:typesystem}
 \subsection{Soundness}
