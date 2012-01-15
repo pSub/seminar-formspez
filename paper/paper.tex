@@ -32,7 +32,7 @@ level. Noninterference is a security property which
 says that a program does not leak sensitive information
 to an adversary. Since more and more (mobile) devices handle
 an increasing number of tasks, multithreading is widely used
-to prevent lock ups (when e.g. establishing a 
+to prevent lock ups (when e.g. establishing a
 network-connection). But often programs that are secure when they
 are executed sequentially, leak information when they are
 composed in parallel. This leads to an attractive channel of
@@ -137,7 +137,7 @@ which satisfies the following constraints:
 \begin{enumerate}
 \item It always picks an active thread
 \item If there is a hidden thread, always choose high or always high threads
-\item Only use low information and the low part of the history to choose a 
+\item Only use low information and the low part of the history to choose a
       new thread
 \end{enumerate}
 
@@ -148,7 +148,7 @@ In constraint two the interleaving of always high threads is realized.
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
 Barthe et.al. state that it is not necessary, for the purpose of the paper,
-to specify the definition of this relation. But to get a feel for this 
+to specify the definition of this relation. But to get a feel for this
 relation, you can define it as: $\mu \sim_g \mu' \Leftrightarrow \mu|_{low} =
 \mu'|_{low}$ where $\mu|_{low}$ projects out all high elements. Based on that
 a program P is noninterfering if for all gobal memories $\mu_1, \mu_2, \mu_1'$
