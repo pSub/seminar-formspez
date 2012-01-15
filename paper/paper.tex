@@ -145,6 +145,19 @@ In constraint two the interleaving of always high threads is realized.
 
 \todo{Explain how the programs are executed}
 
+Now we can define our goal: Noninterference. We define noninterference
+in accordance to an indistinguishability relation $\sim_g$ on global memories.
+Barthe et.al. state that it is not necessary, for the purpose of the paper,
+to specify the definition of this relation. But to get a feel for this 
+relation, you can define it as: $\mu \sim_g \mu' \Leftrightarrow \mu|_{low} =
+\mu'|_{low}$ where $\mu|_{low}$ projects out all high elements. Based on that
+a program P is noninterfering if for all gobal memories $\mu_1, \mu_2, \mu_1'$
+and $\mu_2'$ it holds that:
+
+\begin{align*}
+\mu_1 \sim_g \mu_2 \land P,\mu_1 \Downarrow \mu_1' \land P,\mu_2 \Downarrow \mu_2' \rightarrow \mu_1' \sim_g \mu_2'
+\end{align*}
+
 \subsection{Type system}
 \label{sec:typesystem}
 \subsection{Soundness}
