@@ -221,6 +221,11 @@ If the scheduler is secure and $se, \mathcal{S} \vdash P$, then P is noninterfer
 
 The scheduler is secure, if it is defined w.r.t. the conditions from section \ref{sec:syntaxsemantics}.
 
+An important hypothesis to succeed in the proof of this theorem is the existence
+of a \texttt{next} function. This \texttt{next} function should compute for every
+high program point the first subsequent program point with a low security level. With
+this function one is able to detect when a hidden thread is allowed to become visible
+again.
 \subsection{Instantiation}
 \label{sec:instantiation}
 
