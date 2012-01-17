@@ -176,6 +176,24 @@ $s, t \in LType$, $i \in \mathcal{P}$ and se is a securirty environment.
 
 This type system is extended by the following rules, to support multithreading:
 
+\todo{Place proofstrees into one line with minipages}
+\begin{prooftree}
+\AxiomC{P[i] $\in$ SeqIns}
+\AxiomC{$se, i \vdash_{seq} s \Rightarrow t$}
+\BinaryInfC{$se, i \vdash s \Rightarrow t$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{P[i] = \texttt{start} pc}
+\AxiomC{$se(i) \leq se(pc)$}
+\BinaryInfC{$se, i \vdash s \Rightarrow s$}
+\end{prooftree}
+
+The first rule states, that sequential commands are treated as usual
+and the second rule ensures, that the security level of the entry point
+of the spawned thread, is lower bounded by the level of the \texttt{start}
+instruction.
+
 \subsection{Soundness}
 \label{sec:soundness}
 \subsection{Instantiation}
