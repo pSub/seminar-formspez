@@ -164,6 +164,17 @@ The type system is the core part of the framework in the effect that it
 enforces the previously defined noninterference property. Thus every
 program which is typable, is noninterfering.
 
+The type system for multithreaded programs is build up from a type system
+for sequential programs for which the following assumptions hold:
+
+\begin{enumerate}
+\item We have a partial ordered set $(LType, \leq)$ of local types
+\item and typing judgments of the form $se, i \vdash_{seq} s \Rightarrow t$, where
+$s, t \in LType$, $i \in \mathcal{P}$ and se is a securirty environment.
+\end{enumerate}
+
+This type system is extended by the following rules, to support multithreading:
+
 \subsection{Soundness}
 \label{sec:soundness}
 \subsection{Instantiation}
