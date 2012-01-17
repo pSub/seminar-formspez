@@ -226,6 +226,18 @@ of a \texttt{next} function. This \texttt{next} function should compute for ever
 high program point the first subsequent program point with a low security level. With
 this function one is able to detect when a hidden thread is allowed to become visible
 again.
+
+This intuition is capture in the following properties for the function $next: \mathcal{P}
+\rightharpoonup \mathcal{P}$:
+
+\begin{enumerate}
+\item $Dom(next) = \{i \in \mathcal{P} | se(i) = high \land \exists j \in \mathcal{P} . i \mapsto^* j \land se(j) \neq high\}$ \todo{use simple method of new paper?}
+\item $i, j \in Dom(next) \land i \mapsto j \Rightarrow next(i) = next(j)$
+\item $i \in Dom(next) \land j \not\in Dom(next) \land i \mapsto j \Rightarrow next(i) = j$
+\item $j, k \in Dom(next) \land i \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k)$ \todo{is there an error?}
+\item $i, j \in Dom(next) \land k \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k$
+\end{enumerate}
+
 \subsection{Instantiation}
 \label{sec:instantiation}
 
