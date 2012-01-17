@@ -238,6 +238,12 @@ This intuition is capture in the following properties for the function $next: \m
 \item $i, j \in Dom(next) \land k \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k$
 \end{enumerate}
 
+Die domain of next just captures the high, but not always high program points (i.e. the ones
+that can result in a hidden thread). The second property, states that two directly successive high
+program points have the same program point in which the thread becomes visible again. The third rule
+is the counterpart of the second: If a low program point follows a high program point, this low program
+point is the result of the next function for the high program point.
+
 \subsection{Instantiation}
 \label{sec:instantiation}
 
