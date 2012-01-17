@@ -209,6 +209,17 @@ by $\mathcal{S}(j)$ and $se, i \vdash \mathcal{S}(i) \Rightarrow s$ holds.
 
 \subsection{Soundness}
 \label{sec:soundness}
+The framework is now complete, but the proof of the connection between the
+type system and the noninterference property is still outstanding. The full
+proof is not part of the paper and I will only sketch the most important
+parts.
+
+The goal is to proof the following theorem:
+
+\begin{theorem}
+If the scheduler is secure and $se, \mathcal{S} \vdash P$, then P is noninterfering
+\end{theorem}
+
 \subsection{Instantiation}
 \label{sec:instantiation}
 
