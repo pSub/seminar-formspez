@@ -168,10 +168,12 @@ program which is typable, is noninterfering.
 The type system for multithreaded programs is build up from a type system
 for sequential programs for which the following assumptions hold:
 
+\todo{Explain intuition}
 \begin{enumerate}
-\item We have a partial ordered set $(LType, \leq)$ of local types
+\item We have a partial ordered set $(LType, \leq)$ of local types, with an initial
+      type $t_{init}$
 \item and typing judgments of the form $se, i \vdash_{seq} s \Rightarrow t$, where
-$s, t \in LType$, $i \in \mathcal{P}$ and se is a securirty environment.
+      $s, t \in LType$, $i \in \mathcal{P}$ and se is a securirty environment.
 \end{enumerate}
 
 This type system is extended by the following rules, to support multithreading:
@@ -193,6 +195,15 @@ The first rule states, that sequential commands are treated as usual
 and the second rule ensures, that the security level of the entry point
 of the spawned thread, is lower bounded by the level of the \texttt{start}
 instruction.
+
+A program is typeable in this type system $\mathcal{S}, se \vdash P$, where a function $\mathcal{S}:
+\mathcal{P} \rightarrow LType$ that maps a local type to every program point
+and a security environment $se$, iff $\mathcal{S}$ maps every initial program point
+(including the ones of spawned threads) to $t_{init}$ and for every program point $j$ which is an
+successor of $i$ there is a type $s \in LType$, such that $s$ is lower bounded
+by $\mathcal{S}(j)$ and $se, i \vdash \mathcal{S}(i) \Rightarrow s$ holds.
+
+\todo{Explain intuition}
 
 \subsection{Soundness}
 \label{sec:soundness}
