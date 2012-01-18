@@ -250,6 +250,30 @@ point is the result of the next function for the high program point.
 
 \subsection{Instantiation}
 \label{sec:instantiation}
+To demonstrate how the framework can be used, it was instantiated with a simple
+assembly language, which is given by the follow grammar:
+
+\todo{beautify this}
+\begin{align*}
+instr &::= binop\ op && \text{binary operation with values from stack} \\
+&|\ push\ n &&  \text{push value on the stack} \\
+&|\ load\ x && \text{push value of variable on the stack} \\
+&|\ store\ x && \text{store first element of the stack in x} \\
+&|\ goto\ j\ |\ ifeq\ j && \text{un-/conditional jump to j} \\
+&|\ start\ j && \text{create a new thread starting in j} \\
+\end{align*}
+
+where $op \in \{+,-,\times,/\}$, $n \in \mathbb{Z}$ and $x$ are variables. The
+operational semantics are standard and not explicitly necessary for the following
+instantiation, therefor they are omited.
+
+The local states are modeled as a pair of the operand stack and the program counter. The
+initial state $\lambda_{init}(pc)$ has an empty operand stack $\epsilon$ and points to
+the given initial program point.
+
+Besides this concrete language we need to define a type system to enforce noninterference
+according to \ref{sec:typesystem}. The local types are defined by a stack of security levels
+$LType = Stack(Level)$ and $t_{init}$ with the empty stack.
 
 \section{Related Work}
 \label{sec:relatedwork}
