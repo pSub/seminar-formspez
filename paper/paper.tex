@@ -307,6 +307,10 @@ security level of the value on top of the operand stack is \textit{lower or equa
 security level that was assigned by $\Gamma$ to the variable $x$. If this is the case the head
 of $LType$ is removed.
 
+The rule for the branching instruction can only be used if the security level of all program
+points in the control dependence region are lower bounded by the security level of the value
+that is used as the condition (i.e. the top of the operand stack). \todo{What does $lift_k$?}
+
 \section{Related Work}
 \label{sec:relatedwork}
 \section{Conclusion \& Outlook}
