@@ -299,6 +299,14 @@ in a similar manner.
 \label{fig:transfer-rules}
 \end{figure}
 
+The security levels in $LType$ are the security levels of the operands in the local state. To
+express our security policy, we declare a function $\Gamma(x)$ that assigns to every variable
+$x$ a security level. If we now want to \texttt{store} the top of the stack into the variable
+$x$ one premise is that the security level of the program point ($se(i)$) \textit{and} the
+security level of the value on top of the operand stack is \textit{lower or equal} to the
+security level that was assigned by $Gamma$ to the variable $x$. If this is the case the head
+of $LType$ is removed.
+
 \section{Related Work}
 \label{sec:relatedwork}
 \section{Conclusion \& Outlook}
