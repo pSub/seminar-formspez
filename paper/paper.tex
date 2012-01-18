@@ -279,7 +279,25 @@ Besides this concrete language we need to define a type system to enforce nonint
 according to \ref{sec:typesystem}. The local types are defined by a stack of security levels
 $LType = Stack(Level)$ and $t_{init}$ with the empty stack. The typing rules defined in
 Figure~\ref{fig:multithreaded-typing-rules} need to be extended with rules for the concrete instructions
-of the assembly language.
+of the assembly language. In this summary I only explain two of them, the rest follows
+in a similar manner.
+
+\todo{beautify me}
+\begin{figure}
+\begin{prooftree}
+\AxiomC{$P[i] = store\ x$}
+\AxiomC{$se(i) \sqcup k \leq \Gamma(x)$}
+\BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow st$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$P[i] = ifeq\ j$}
+\AxiomC{$\forall j' \in reg(i), k \leq se(j')$}
+\BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)$}
+\end{prooftree}
+\caption{Excerpt of typing rules for the assembly language}
+\label{fig:transfer-rules}
+\end{figure}
 
 \section{Related Work}
 \label{sec:relatedwork}
