@@ -193,7 +193,7 @@ This type system is extended by the following rules, to support multithreading:
 \BinaryInfC{$se, i \vdash s \Rightarrow s$}
 \end{prooftree}
 \caption{Extension of the sequential typing rules}
-\label{multithreaded-typing-rules}
+\label{fig:multithreaded-typing-rules}
 \end{figure}
 
 The first rule states, that sequential commands are treated as usual
@@ -278,7 +278,7 @@ the given initial program point.
 Besides this concrete language we need to define a type system to enforce noninterference
 according to \ref{sec:typesystem}. The local types are defined by a stack of security levels
 $LType = Stack(Level)$ and $t_{init}$ with the empty stack. The typing rules defined in
-Figure~\ref{multithreaded-typing-rules} need to be extended with rules for the concrete instructions
+Figure~\ref{fig:multithreaded-typing-rules} need to be extended with rules for the concrete instructions
 of the assembly language.
 
 \section{Related Work}
