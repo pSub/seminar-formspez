@@ -180,6 +180,7 @@ for sequential programs for which the following assumptions hold:
 This type system is extended by the following rules, to support multithreading:
 
 \todo{Place proofstrees into one line with minipages}
+\begin{figure}
 \begin{prooftree}
 \AxiomC{P[i] $\in$ SeqIns}
 \AxiomC{$se, i \vdash_{seq} s \Rightarrow t$}
@@ -191,6 +192,8 @@ This type system is extended by the following rules, to support multithreading:
 \AxiomC{$se(i) \leq se(pc)$}
 \BinaryInfC{$se, i \vdash s \Rightarrow s$}
 \end{prooftree}
+\caption{Extension of the sequential typing rules}
+\end{figure}
 
 The first rule states, that sequential commands are treated as usual
 and the second rule ensures, that the security level of the entry point
