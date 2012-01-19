@@ -311,6 +311,30 @@ The rule for the branching instruction can only be used if the security level of
 points in the control dependence region are lower bounded by the security level of the value
 that is used as the condition (i.e. the top of the operand stack). \todo{What does $lift_k$?}
 
+The next step is to construct the \texttt{next} function. To make this task easy, we introduce
+a source language which will be complied into the given assembly language. The source language
+is defined as follows:
+
+\begin{align*}
+e ::= n | x | e op e && c ::= x := e | c;c | if e then c else c | while e do c | fork(c)
+\end{align*}
+
+Now it is easy to define the control dependence region and the junction points for the source
+language and deduce the ones for the assembly language from them. The first step is to label the
+source language at the gefärdeten\todo{translate} regions with natural numbers:
+
+\begin{align*}
+c ::= [x := e]^n | c;c | [if e then c else c]^n | [while e do c]^n | [fork(c)]^n
+\end{align*}
+
+According to this labels we can define the dependence regions for the source language:
+
+\begin{definition}{sregion}
+The control dependence region for a branching command $[c]^n$ in the source language is
+defined as the labels inside the branching command, except for those ones that are inside a
+\texttt{fork} command.
+\end{definition}
+
 \section{Related Work}
 \label{sec:relatedwork}
 \section{Conclusion \& Outlook}
