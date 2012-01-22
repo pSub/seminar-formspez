@@ -357,6 +357,63 @@ This looks familiar to the \texttt{next} function we want to define.\footnote{We
 every instruction $i$ inside an outermost branching point $[c]^n$ as $next(i) = jun(n)$}. The part that is
 missing, is the restriction to outermost branching points whose guards involves secrets.
 
+To make this distinction a new type system is introduced. Type judgments have the form
+$\vdash_\alpha [c]_{\alpha'}^n : E$, where $E$ is a function that maps labels to security
+levels.\footnote{Given $E$ it is easy to define a security environment $se$. For a definition
+of $E$ see Barthe et. al. 2006} $\alpha$ denotes if $c$ is \textit{part of} a branching
+instruction that branches on secret ($\bullet$) or public ($\circ$) data and $\alpha'$ is the
+security level of the guard \textit{in} the branching instruction.
+
+We now take a look at the rules of this type system concerning the \texttt{if} instruction.
+
+\todo{use an other package to display these rules}
+\begin{figure}
+\begin{prooftree}
+\AxiomC{$\vdash e : L$}
+\AxiomC{$\vdash_\alpha c : E$}
+\AxiomC{$\vdash_\alpha c' : E$}
+\LeftLabel{L-COND:\quad}
+\TrinaryInfC{$\vdash_\alpha [if \ e \ then \ c \ else \ c']^n_\alpha : E$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$\vdash e : H$}
+\AxiomC{$\vdash_\bullet c : E$}
+\AxiomC{$\vdash_\bullet c' : E$}
+\LeftLabel{H-COND:\quad}
+\TrinaryInfC{$\vdash_\bullet [if \ e \ then \ c \ else \ c']^n_\bullet : E$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$\vdash e : H$ \quad $\vdash_\bullet c : E$}
+\AxiomC{$\vdash_\bullet c' : E$}
+\AxiomC{$E = lift_H(E, sregion(n))$}
+\LeftLabel{TOP-H-COND:\quad}
+\TrinaryInfC{$\vdash_\circ [if \ e \ then \ c \ else \ c']^n_\bullet : E$}
+\end{prooftree}
+
+\caption{Typing rules for \texttt{if} on source level.}
+\label{fig:typing-rules-if}
+\end{figure}
+
+The first rule L-COND from Figure \ref{fig:typing-rules-if} says that if we branch on a low
+guard, everything depends on the security level of $c$ and $c'$. The rule H-COND covers the
+case where we have a high guard, in this case the control dependence region has to be marked
+high. The rule TOP-H-COND is the interesting one. Because of the preceding rules we can not
+be part of branch with a low guard, therefore we are in the outermost high branch. The premise
+$E' = lift_H(E, sregion(n))$ reads as: For all labels in the control dependence region $E$ is
+defined as $E'(n) = H \sqcup E(n)$ and $E'(n) = E(n)$ for all other labels.
+
+This type system is powerful enough to prevent explicit and implicit flows and can therefor
+replace the type system defined previously. \todo{show ASSIGN rule?}
+
+With this type system in mind, we can now define our \texttt{next} function.
+
+\begin{definition}{next}
+For every branching point $c$ in the source program such that $\vdash_\circ [c]_\bullet^n$, we  have
+that $\forall k \in tregion(n) . next(k) = jun(n)$.
+\end{definition}
+
 \section{Related Work}
 \label{sec:relatedwork}
 \section{Conclusion \& Outlook}
