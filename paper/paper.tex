@@ -335,6 +335,14 @@ defined as the labels inside the branching command, except for those ones that a
 \texttt{fork} command.
 \end{definition}
 
+Now we can define $tregion$ according to a compilation function $\mathcal{C}$. I won't define
+the compilation function here, because it is not that essential how it exactly looks like.
+
+\begin{definition}{tregion}
+$tregion(n)$ is defined as the set of instruction labels obtained by compiling the commands
+$[c']^{n'}$ of the branching instruction $[c]^n$ of the source code with a compilation function $\mathcal{C}$.
+\end{definition}
+
 \section{Related Work}
 \label{sec:relatedwork}
 \section{Conclusion \& Outlook}
