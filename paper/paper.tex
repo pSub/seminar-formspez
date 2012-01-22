@@ -343,6 +343,16 @@ $tregion(n)$ is defined as the set of instruction labels obtained by compiling t
 $[c']^{n'}$ of the branching instruction $[c]^n$ of the source code with a compilation function $\mathcal{C}$.
 \end{definition}
 
+With this definition of $tregion$ in mind, it is easy to define the junction points.
+
+\begin{definition}{jun}
+The junction points are computed by a function $jun: \mathcal{P} \rightarrow \mathcal{P}$. It is defined
+on all junction points $[c]^n$ in the source program and its domain looks like $max \{i\ |\ i \in tregion(n)\} + 1$.
+\end{definition}
+
+Intuitively a junction point according to this definition is the point that follows on the last instruction
+that is affected by the branching instruction.
+
 \section{Related Work}
 \label{sec:relatedwork}
 \section{Conclusion \& Outlook}
