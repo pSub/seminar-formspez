@@ -353,6 +353,10 @@ on all junction points $[c]^n$ in the source program and its domain looks like $
 Intuitively a junction point according to this definition is the point that follows on the last instruction
 that is affected by the branching instruction.
 
+This looks familiar to the \texttt{next} function we want to define.\footnote{We could define \texttt{next} for
+every instruction $i$ inside an outermost branching point $[c]^n$ as $next(i) = jun(n)$}. The part that is
+missing, is the restriction to outermost branching points whose guards involves secrets.
+
 \section{Related Work}
 \label{sec:relatedwork}
 \section{Conclusion \& Outlook}
