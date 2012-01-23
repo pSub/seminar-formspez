@@ -206,17 +206,20 @@ for sequential programs for which the following assumptions hold:
 
 This type system is extended by the following rules, to support multithreading:
 
-\todo{Place proofstrees into one line with minipages and beautify me}
+\todo{beautify me}
 \begin{figure}
+\begin{minipage}{.5\textwidth}
 \begin{align*}
 \inferrule{P[i] \in SeqIns \\ se, i \vdash_{seq} s \Rightarrow t}
 {se, i \vdash s \Rightarrow t}
 \end{align*}
-
+\end{minipage}
+\begin{minipage}{.5\textwidth}
 \begin{align*}
 \inferrule{P[i] = \mathtt{start} pc \\ se(i) \leq se(pc)}
 {se, i \vdash s \Rightarrow s}
 \end{align*}
+\end{minipage}
 \caption{Extension of the sequential typing rules}
 \label{fig:multithreaded-typing-rules}
 \end{figure}
