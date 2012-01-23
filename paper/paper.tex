@@ -151,6 +151,29 @@ SeqState$. The one step execution for the multithreaded language $\leadsto_{seq}
 \subseteq (ConcState \times History) \times (ConcState \times History)$ is defined
 by the following rules.
 
+\begin{figure}
+\begin{align*}
+\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] \in SeqIns \\
+\langle s(ctid), s.gmem\rangle \leadsto_{seq} \sigma,\mu \\ \sigma.pc \neq \mathtt{exit}}
+{s,h \leadsto_{conc} s[lst(ctid) := \sigma, gmem := \mu], \langle ctid, se(i)\rangle :: h}
+\end{align*}
+
+\begin{align*}
+\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] \in SeqIns \\
+\langle s(ctid), s.gmem\rangle \leadsto_{seq} \sigma,\mu \\ \sigma.pc = \mathtt{exit}}
+{s,h \leadsto_{conc} s[lst := lst \\ ctid, gmem := \mu], \langle ctid, se(i)\rangle :: h}
+\end{align*}
+
+\begin{align*}
+\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] = \mathtt{start} pc \\
+fresht_{se(i)}(s) = ntid \\ s(ctid).[pc := i + 1] = \sigma'}
+{s,h \leadsto_{conc} s.[lst(ctid) := \sigma', lst(ntid) := \lambda_{init}(pc)],
+\langle ctid, se(i)\rangle :: h}
+\end{align*}
+\caption{Multithreaded execution.}
+\label{fig:multithreaded-execution}
+\end{figure}
+
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
 Barthe et.al. state that it is not necessary, for the purpose of the paper,
