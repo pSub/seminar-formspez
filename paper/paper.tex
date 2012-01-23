@@ -145,6 +145,11 @@ which satisfies the following constraints:
 In constraint two the interleaving of always high threads is realized.
 
 \todo{Explain how the programs are executed}
+To define what noninterference means we need a notion of excution. It is assumed
+that we have a sequential execution relation $\leadsto_{seq} \subseteq SeqState \times
+SeqState$. The one step execution for the multithreaded language $\leadsto_{seq}
+\subseteq (ConcState \times History) \times (ConcState \times History)$ is defined
+by the following rules.
 
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
