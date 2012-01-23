@@ -87,7 +87,7 @@ To connect programs and security levels, a \textit{security environment}
 A security environment is a function that maps program points to security
 levels. A program point $i$ is called high if $se(i) = high$, low if $se(i)
 = low$ and always high if all points $j$ reachable (according to $\mapsto$)
-from $i$ satisfy $se(j) = i$ and $i$ is a high program point.
+from $i$ satisfy $se(j) = high$ and $i$ is a high program point.
 
 Now we come to the semantics part. The main idea is to build a the semantics
 for multithreaded programs by combining the semantics for sequential programs
