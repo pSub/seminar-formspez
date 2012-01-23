@@ -183,6 +183,11 @@ then the concurent transition can be made. In this transition the concurrent sta
 according to the results of the sequential execution and the thread id and security level of $i$
 is recorded in the history.
 
+The second rule covers the case in which the thread pickted by the scheduler has only the current
+instruction before terminating (i.e. $\simga.pc = \mathtt{exit}$). In the concurrent transition
+the current thread id is removed from the concurrent state and everything else is like in the
+first rule.
+
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
 Barthe et.al. state that it is not necessary, for the purpose of the paper,
