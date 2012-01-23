@@ -321,7 +321,7 @@ e ::= n | x | e op e && c ::= x := e | c;c | if e then c else c | while e do c |
 
 Now it is easy to define the control dependence region and the junction points for the source
 language and deduce the ones for the assembly language from them. The first step is to label the
-source language at the gefärdeten\todo{translate} regions with natural numbers:
+source language at the regions at risk with natural numbers:
 
 \begin{align*}
 c ::= [x := e]^n | c;c | [if e then c else c]^n | [while e do c]^n | [fork(c)]^n
