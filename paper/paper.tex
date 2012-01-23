@@ -94,7 +94,7 @@ for multithreaded programs by combining the semantics for sequential programs
 with a scheduler.
 
 All active\footnote{A thread is active from \texttt{start \textit{pc}} until
-it reaches the \texttt{exit} point.} threads are collected in a set $Thead$.
+it reaches the \texttt{exit} point.} threads are collected in a set $Thread$.
 The state of the concurrent running threads ($ConcState$) is defined as the
 product of the partial function space $(Thread \rightharpoonup LocState)$
 and the set of global memories $GMemory$. Where $LocState$ is the internal
