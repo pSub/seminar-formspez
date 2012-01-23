@@ -120,7 +120,7 @@ The \textit{hidden} threads are the ones we have to care about. These contain
 obviously high information in the current program point, but have afterwards
 instructions that deal with low information. Since the attacker can watch the
 low part of the memory, chances are good that he can deduce high information
-through changing low outputs. To prevent indirect flows that are introduced by
+through looking at changing low outputs. To prevent indirect flows that are introduced by
 these hidden threads, the scheduler will be modified to treat these threads
 in a special way. This will be done by 'hiding' these threads, therefore comes
 the name of them.
