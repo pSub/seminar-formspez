@@ -102,7 +102,7 @@ memory of a thread (from there no information can leak, because everything is pr
 the critical part of the system, because it is a memory shared between all
 active threads.
 
-At this point a first simplification can be made. Looking a state $s$ we can
+At this point a first simplification can be made. Looking a state $s \in ConcState$ we can
 first extract the active threads (\texttt{s.act}) by taking the domain of the first
 component. According to a security environment we can classify these threads,
 with respect to their current program point (\texttt{s.pc(tid)} where $tid \in Thread$),
