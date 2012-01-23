@@ -98,7 +98,7 @@ it reaches the \texttt{exit} point.} threads are collected in a set $Thread$.
 The state of the concurrent running threads ($ConcState$) is defined as the
 product of the partial function space $(Thread \rightharpoonup LocState)$
 and the set of global memories $GMemory$. Where $LocState$ is the internal
-memory of a thread, from there no information can leak and the $GMemory$ is
+memory of a thread (from there no information can leak, because everything is private/internal) and the $GMemory$ is
 the critical part of the system, because it is a memory shared between all
 active threads.
 
