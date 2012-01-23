@@ -188,6 +188,16 @@ instruction before terminating (i.e. $\simga.pc = \mathtt{exit}$). In the concur
 the current thread id is removed from the concurrent state and everything else is like in the
 first rule.
 
+The third rule introduces the dynamic creation of new threads. In this rule the function $fresh_{l}$
+takes a set of thread identifiers and returns a new thread identifier at level $l$\footnote{It is
+assumed that $fresh_l \neq fresh_{l'} Leftrightarrow l \neq l'$} and $\lambda_{init} : \mathcal{P}
+\rightarrow LocState$ produces an initial state with the program pointer at the given program point.
+If the current instruction at program point $i$ is the \texttt{start} instruction, a new thread
+identifier is pickt w.r.t. the security level of $i$. The program counter of the current thread
+is increased by one, to step to the next instruction. The resulting concurrent state includes the
+updated state of the current thread and the initial state for the new thread. The global memory
+is not modified and the history is extended with the current thread id and the security level of $i$.
+
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
 Barthe et.al. state that it is not necessary, for the purpose of the paper,
