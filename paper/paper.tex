@@ -113,8 +113,8 @@ the current program point is high but not always high.
 
 The latter two are the interesting ones. If a thread is \textit{always high} it
 can not leaks any information into low, because it never gets in touch
-with low program points. So these threads can safely be interleaved by the
-scheduler.
+with low program points. So these threads can safely be interleaved between any
+other threads by the scheduler.
 
 The \textit{hidden} threads are the ones we have to care about. These contain
 obviously high information in the current program point, but have afterwards
