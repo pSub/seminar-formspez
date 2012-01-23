@@ -184,7 +184,7 @@ according to the results of the sequential execution and the thread id and secur
 is recorded in the history.
 
 The second rule covers the case in which the thread pickted by the scheduler has only the current
-instruction before terminating (i.e. $\simga.pc = \mathtt{exit}$). In the concurrent transition
+instruction before terminating (i.e. $\sigma.pc = \mathtt{exit}$). In the concurrent transition
 the current thread id is removed from the concurrent state and everything else is like in the
 first rule.
 
@@ -197,6 +197,18 @@ identifier is picked w.r.t. the security level of $i$. The program counter of th
 is increased by one, to step to the next instruction. The resulting concurrent state includes the
 updated state of the current thread and the initial state for the new thread. The global memory
 is not modified and the history is extended with the current thread id and the security level of $i$.
+
+Based on this an evaluation relation $\Downarrow_{conc} \subseteq (ConcState \times History) \times
+GMemory)$ is defined by
+
+\todo{explain intuition?}
+\begin{align*}
+s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h'. s,h \leadsto_{conc}^* s',h' \land s'.act = \emptyset \land s'.gmem = \mu
+\end{align*}
+
+$P, \mu \Downarrow_{conc} \mu'$ is a shorthand for $\langle\langle main,\lambda_{init}(1)\rangle,
+\mu\rangle, \epsilon^{hist} \Downarrow_{conc} \mu'$, where $main$ is the identity of the main thread
+and $\epsilon^{hist}$ the empty history.
 
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
