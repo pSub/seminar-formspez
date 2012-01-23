@@ -184,19 +184,17 @@ for sequential programs for which the following assumptions hold:
 
 This type system is extended by the following rules, to support multithreading:
 
-\todo{Place proofstrees into one line with minipages}
+\todo{Place proofstrees into one line with minipages and beautify me}
 \begin{figure}
-\begin{prooftree}
-\AxiomC{P[i] $\in$ SeqIns}
-\AxiomC{$se, i \vdash_{seq} s \Rightarrow t$}
-\BinaryInfC{$se, i \vdash s \Rightarrow t$}
-\end{prooftree}
+\begin{align*}
+\inferrule{P[i] \in SeqIns \\ se, i \vdash_{seq} s \Rightarrow t}
+{se, i \vdash s \Rightarrow t}
+\end{align*}
 
-\begin{prooftree}
-\AxiomC{P[i] = \texttt{start} pc}
-\AxiomC{$se(i) \leq se(pc)$}
-\BinaryInfC{$se, i \vdash s \Rightarrow s$}
-\end{prooftree}
+\begin{align*}
+\inferrule{P[i] = \mathtt{start} pc \\ se(i) \leq se(pc)}
+{se, i \vdash s \Rightarrow s}
+\end{align*}
 \caption{Extension of the sequential typing rules}
 \label{fig:multithreaded-typing-rules}
 \end{figure}
@@ -289,17 +287,15 @@ in a similar manner.
 
 \todo{beautify me}
 \begin{figure}
-\begin{prooftree}
-\AxiomC{$P[i] = store\ x$}
-\AxiomC{$se(i) \sqcup k \leq \Gamma(x)$}
-\BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow st$}
-\end{prooftree}
+\begin{align*}
+\inferrule{P[i] = store\ x \\ se(i) \sqcup k \leq \Gamma(x)}
+{se, i \vdash_{seq} k :: st \Rightarrow st}
+\end{align*}
 
-\begin{prooftree}
-\AxiomC{$P[i] = ifeq\ j$}
-\AxiomC{$\forall j' \in reg(i), k \leq se(j')$}
-\BinaryInfC{$se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)$}
-\end{prooftree}
+\begin{align*}
+\inferrule{P[i] = ifeq\ j \\ \forall j' \in reg(i), k \leq se(j')}
+{se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)}
+\end{align*}
 \caption{Excerpt of typing rules for the assembly language}
 \label{fig:transfer-rules}
 \end{figure}
@@ -373,30 +369,21 @@ We now take a look at the rules of this type system concerning the \texttt{if} i
 
 \todo{use an other package to display these rules}
 \begin{figure}
-\begin{prooftree}
-\AxiomC{$\vdash e : L$}
-\AxiomC{$\vdash_\alpha c : E$}
-\AxiomC{$\vdash_\alpha c' : E$}
-\LeftLabel{L-COND:\quad}
-\TrinaryInfC{$\vdash_\alpha [if \ e \ then \ c \ else \ c']^n_\alpha : E$}
-\end{prooftree}
+\begin{align*}
+\inferrule[L-COND]{\vdash e : L \\ \vdash_\alpha c : E \\ \vdash_\alpha c' : E}
+{\vdash_\alpha [if \ e \ then \ c \ else \ c']^n_\alpha : E}
+\end{align*}
 
-\begin{prooftree}
-\AxiomC{$\vdash e : H$}
-\AxiomC{$\vdash_\bullet c : E$}
-\AxiomC{$\vdash_\bullet c' : E$}
-\LeftLabel{H-COND:\quad}
-\TrinaryInfC{$\vdash_\bullet [if \ e \ then \ c \ else \ c']^n_\bullet : E$}
-\end{prooftree}
+\begin{align*}
+\inferrule[H-COND]{\vdash e : H \\ \vdash_\bullet c : E \\ \vdash_\bullet c' : E}
+{\vdash_\bullet [if \ e \ then \ c \ else \ c']^n_\bullet : E}
+\end{align*}
 
-\begin{prooftree}
-\AxiomC{$\vdash e : H$ \quad $\vdash_\bullet c : E$}
-\AxiomC{$\vdash_\bullet c' : E$}
-\AxiomC{$E = lift_H(E, sregion(n))$}
-\LeftLabel{TOP-H-COND:\quad}
-\TrinaryInfC{$\vdash_\circ [if \ e \ then \ c \ else \ c']^n_\bullet : E$}
-\end{prooftree}
-
+\begin{align*}
+\inferrule[TOP-H-COND]{\vdash e : H \\ \vdash_\bullet c : E \\
+\vdash_\bullet c' : E \\ E = lift_H(E, sregion(n))}
+{\vdash_\circ [if \ e \ then \ c \ else \ c']^n_\bullet : E}
+\end{align*}
 \caption{Typing rules for \texttt{if} on source level.}
 \label{fig:typing-rules-if}
 \end{figure}
