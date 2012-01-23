@@ -174,6 +174,15 @@ fresht_{se(i)}(s) = ntid \\ s(ctid).[pc := i + 1] = \sigma'}
 \label{fig:multithreaded-execution}
 \end{figure}
 
+The scheduler is allow to pick a new thread after every transition of $\leadsto_{seq}$. The
+intuition of the first rule is, that the scheduler picks a new thread $ctid$ which is at
+program point $i$. This program point maps to an sequential instruction. The exection of
+this instruction leads to a local state $\sigma$ and a global memory $\mu$. If these conditions
+are met and instruction $i$ was not the last instruction (i.e. $\sigma.pc \neq \mathtt{exit}$),
+then the concurent transition can be made. In this transition the concurrent state is updated
+according to the results of the sequential execution and the thread id and security level of $i$
+is recorded in the history.
+
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
 Barthe et.al. state that it is not necessary, for the purpose of the paper,
