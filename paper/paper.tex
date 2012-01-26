@@ -378,7 +378,10 @@ the given security values.
 
 The rule for the branching instruction can only be used if the security level of all program
 points in the control dependence region are lower bounded by the security level of the value
-that is used as the condition (i.e. the top of the operand stack). \todo{What does $lift_k$?}
+that is used as the condition (i.e. the top of the operand stack). The function $lift_k :
+\text{Level} \rightarrow \text{Stack}(\text{Level}) \rightarrow \text{Stack}(\text{Level})$
+extends $\sqcup$ to stacks of security levels. This ensures, that every program point in the control
+dependence region has the same security level as the branching point.
 
 The next step is to construct the \texttt{next} function. To make this task easy, we introduce
 a source language which will be complied into the given assembly language. The source language
