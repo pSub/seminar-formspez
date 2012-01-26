@@ -373,7 +373,8 @@ $x$ a security level. If we now want to \texttt{store} the top of the stack into
 $x$ one premise is that the security level of the program point ($se(i)$) \textit{and} the
 security level of the value on top of the operand stack is \textit{lower or equal} to the
 security level that was assigned by $\Gamma$ to the variable $x$. If this is the case the head
-of $LType$ is removed.
+of $LType$ is removed. The $\sqcup$ operator is like a logical 'or', it returns the higher of
+the given security values.
 
 The rule for the branching instruction can only be used if the security level of all program
 points in the control dependence region are lower bounded by the security level of the value
