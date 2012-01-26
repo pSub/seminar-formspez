@@ -102,10 +102,10 @@ memory of a thread (from there no information can leak, because everything is pr
 the critical part of the system, because it is a memory shared between all
 active threads.
 
-At this point a first simplification can be made. Looking a state $s \in ConcState$ we can
+At this point a first simplification can be made. Looking a state $s \in \text{ConcState}$ we can
 first extract the active threads (\texttt{s.act}) by taking the domain of the first
 component. According to a security environment we can classify these threads,
-with respect to their current program point (\texttt{s.pc(tid)} where $tid \in Thread$),
+with respect to their current program point (\texttt{s.pc(tid)} where $tid \in \text{Thread}$),
 into \textit{low} threads iff the current program point is low. In \textit{high}
 threads iff the current program point is high. In \textit{always high} threads
 iff the current program point is always high and in \textit{hidden} threads, iff
@@ -127,12 +127,12 @@ the name of them.
 
 To complete our multithreaded setup we need a scheduler. The scheduler will
 operate on histories. A history is a list of pairs $(tid, l$), where $tid \in
-Thread$ and $l \in Level$. In this history all threads chosen by the scheduler
+\text{Thread}$ and $l \in \text{Level}$. In this history all threads chosen by the scheduler
 are recorded.
 
 At this point no concrete scheduler is defined to make the framework applicable
 for a wide class of schedulers. A scheduler is in this class iff it can be
-modeled as a function $pickt: ConcState \times History \rightharpoonup Thread$
+modeled as a function $pickt: \text{ConcState} \times \text{History} \rightharpoonup \text{Thread}$
 which satisfies the following constraints:
 
 \begin{enumerate}
@@ -145,20 +145,20 @@ which satisfies the following constraints:
 In constraint two the interleaving of always high threads is realized.
 
 To define what noninterference means we need a notion of excution. It is assumed
-that we have a sequential execution relation $\leadsto_{seq} \subseteq SeqState \times
-SeqState$. The one step execution for the multithreaded language $\leadsto_{seq}
-\subseteq (ConcState \times History) \times (ConcState \times History)$ is defined
+that we have a sequential execution relation $\leadsto_{seq} \subseteq \text{SeqState} \times
+\text{SeqState}$. The one step execution for the multithreaded language $\leadsto_{seq}
+\subseteq (\text{ConcState} \times \text{History}) \times (\text{ConcState} \times \text{History})$ is defined
 by the following rules.
 
 \begin{figure}
 \begin{align*}
-\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] \in SeqIns \\
+\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] \in \text{SeqIns} \\
 \langle s(ctid), s.gmem\rangle \leadsto_{seq} \sigma,\mu \\ \sigma.pc \neq \mathtt{exit}}
 {s,h \leadsto_{conc} s[lst(ctid) := \sigma, gmem := \mu], \langle ctid, se(i)\rangle :: h}
 \end{align*}
 
 \begin{align*}
-\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] \in SeqIns \\
+\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] \in \text{SeqIns} \\
 \langle s(ctid), s.gmem\rangle \leadsto_{seq} \sigma,\mu \\ \sigma.pc = \mathtt{exit}}
 {s,h \leadsto_{conc} s[lst := lst \\ ctid, gmem := \mu], \langle ctid, se(i)\rangle :: h}
 \end{align*}
@@ -188,17 +188,17 @@ the current thread id is removed from the concurrent state and everything else i
 first rule.
 
 The third rule introduces the dynamic creation of new threads. In this rule the function $fresh_{l}$
-takes a set of thread identifiers and returns a new thread identifier at level $l$\footnote{It is
-assumed that $fresh_l \neq fresh_{l'} Leftrightarrow l \neq l'$} and $\lambda_{init} : \mathcal{P}
-\rightarrow LocState$ produces an initial state with the program pointer at the given program point.
+\footnote{It is assumed that $fresh_l \neq fresh_{l'} Leftrightarrow l \neq l'$}
+takes a set of thread identifiers and returns a new thread identifier at level $l$ and $\lambda_{init} : \mathcal{P}
+\rightarrow \text{LocState}$ produces an initial state with the program pointer at the given program point.
 If the current instruction at program point $i$ is the \texttt{start} instruction, a new thread
 identifier is picked w.r.t. the security level of $i$. The program counter of the current thread
 is increased by one, to step to the next instruction. The resulting concurrent state includes the
 updated state of the current thread and the initial state for the new thread. The global memory
 is not modified and the history is extended with the current thread id and the security level of $i$.
 
-Based on this an evaluation relation $\Downarrow_{conc} \subseteq (ConcState \times History) \times
-GMemory)$ is defined by
+Based on this an evaluation relation $\Downarrow_{conc} \subseteq (\text{ConcState} \times \text{History}) \times
+\text{GMemory})$ is defined by
 
 \todo{explain intuition?}
 \begin{align*}
@@ -322,14 +322,13 @@ point is the result of the next function for the high program point.
 To demonstrate how the framework can be used, it was instantiated with a simple
 assembly language, which is given by the follow grammar:
 
-\todo{beautify this}
 \begin{align*}
-instr &::= binop\ op && \text{binary operation with values from stack} \\
-&|\ push\ n &&  \text{push value on the stack} \\
-&|\ load\ x && \text{push value of variable on the stack} \\
-&|\ store\ x && \text{store first element of the stack in x} \\
-&|\ goto\ j\ |\ ifeq\ j && \text{un-/conditional jump to j} \\
-&|\ start\ j && \text{create a new thread starting in j} \\
+instr &::= \text{binop}\ op && \text{binary operation with values from stack} \\
+&|\ \text{push}\ n &&  \text{push value on the stack} \\
+&|\ \text{load}\ x && \text{push value of variable on the stack} \\
+&|\ \text{store}\ x && \text{store first element of the stack in $x$} \\
+&|\ \text{goto}\ j\ |\ \text{ifeq}\ j && \text{un-/conditional jump to $j$} \\
+&|\ \text{start}\ j && \text{create a new thread starting in $j$} \\
 \end{align*}
 
 where $op \in \{+,-,\times,/\}$, $n \in \mathbb{Z}$ and $x$ are variables. The
@@ -341,24 +340,26 @@ initial state $\lambda_{init}(pc)$ has an empty operand stack $\epsilon$ and poi
 the given initial program point.
 
 Besides this concrete language we need to define a type system to enforce noninterference
-according to \ref{sec:typesystem}. The local types are defined by a stack of security levels
-$LType = Stack(Level)$ and $t_{init}$ with the empty stack. The typing rules defined in
-Figure~\ref{fig:multithreaded-typing-rules} need to be extended with rules for the concrete instructions
+according to section \ref{sec:typesystem}. The local types are defined by a stack of security levels
+$\text{LType} = \text{Stack}(\text{Level})$ and $\textsc{t}_{init}$ with the empty stack. The typing rules defined in
+figure~\ref{fig:multithreaded-typing-rules} need to be extended with rules for the concrete instructions
 of the assembly language. In this summary I only explain two of them, the rest follows
 in a similar manner.
 
-\todo{beautify me}
 \begin{figure}
+\begin{minipage}{.5\textwidth}
 \begin{align*}
-\inferrule{P[i] = store\ x \\ se(i) \sqcup k \leq \Gamma(x)}
+\inferrule{P[i] = \text{store}\ x \\ se(i) \sqcup k \leq \Gamma(x)}
 {se, i \vdash_{seq} k :: st \Rightarrow st}
 \end{align*}
-
+\end{minipage}
+\begin{minipage}{.5\textwidth}
 \begin{align*}
-\inferrule{P[i] = ifeq\ j \\ \forall j' \in reg(i), k \leq se(j')}
+\inferrule{P[i] = \text{ifeq}\ j \\ \forall j' \in reg(i), k \leq se(j')}
 {se, i \vdash_{seq} k :: st \Rightarrow lift_k(st)}
 \end{align*}
-\caption{Excerpt of typing rules for the assembly language}
+\end{minipage}
+\caption{Excerpt of typing rules for the assembly language.}
 \label{fig:transfer-rules}
 \end{figure}
 
@@ -379,7 +380,7 @@ a source language which will be complied into the given assembly language. The s
 is defined as follows:
 
 \begin{align*}
-e ::= n\ |\ x\ |\ e\ op\ e && c\ ::=\ x\ :=\ e\ |\ c;c\ |\ if\ e\ then\ c\ else\ c\ |\ while\ e\ do\ c\ |\ fork(c)
+e ::= n\ |\ x\ |\ e\ op\ e && c ::= x\ :=\ e\ |\ c;c\ |\ \text{if}\ e\ \text{then}\ c\ \text{else}\ c\ |\ \text{while}\ e\ \text{do}\ c\ |\ \text{fork}(c)
 \end{align*}
 
 Now it is easy to define the control dependence region and the junction points for the source
@@ -387,7 +388,7 @@ language and deduce the ones for the assembly language from them. The first step
 source language at the regions at risk with natural numbers:
 
 \begin{align*}
-c\ ::=\ [x\ :=\ e]^n\ |\ c;c\ |\ [if\ e\ then\ c\ else\ c]^n\ |\ [while\ e\ do\ c]^n\ |\ [fork(c)]^n
+c ::= [x\ :=\ e]^n\ |\ c;c\ |\ [\text{if}\ e\ \text{then}\ c\ \text{else}\ c]^n\ |\ [\text{while}\ e\ \text{do}\ c]^n\ |\ [\text{fork}(c)]^n
 \end{align*}
 
 According to this labels we can define the dependence regions for the source language:
@@ -432,28 +433,28 @@ We now take a look at the rules of this type system concerning the \texttt{if} i
 \todo{use an other package to display these rules}
 \begin{figure}
 \begin{align*}
-\inferrule[L-COND]{\vdash e : L \\ \vdash_\alpha c : E \\ \vdash_\alpha c' : E}
-{\vdash_\alpha [if \ e \ then \ c \ else \ c']^n_\alpha : E}
+\inferrule[L-Cond]{\vdash e : L \\ \vdash_\alpha c : E \\ \vdash_\alpha c' : E}
+{\vdash_\alpha [\text{if} \ e \ \text{then} \ c \ \text{else} \ c']^n_\alpha : E}
 \end{align*}
 
 \begin{align*}
-\inferrule[H-COND]{\vdash e : H \\ \vdash_\bullet c : E \\ \vdash_\bullet c' : E}
-{\vdash_\bullet [if \ e \ then \ c \ else \ c']^n_\bullet : E}
+\inferrule[H-Cond]{\vdash e : H \\ \vdash_\bullet c : E \\ \vdash_\bullet c' : E}
+{\vdash_\bullet [\text{if} \ e \ \text{then} \ c \ \text{else} \ c']^n_\bullet : E}
 \end{align*}
 
 \begin{align*}
-\inferrule[TOP-H-COND]{\vdash e : H \\ \vdash_\bullet c : E \\
+\inferrule[Top-H-Cond]{\vdash e : H \\ \vdash_\bullet c : E \\
 \vdash_\bullet c' : E \\ E = lift_H(E, sregion(n))}
-{\vdash_\circ [if \ e \ then \ c \ else \ c']^n_\bullet : E}
+{\vdash_\circ [\text{if} \ e \ \text{then} \ c \ \text{else} \ c']^n_\bullet : E}
 \end{align*}
 \caption{Typing rules for \texttt{if} on source level.}
 \label{fig:typing-rules-if}
 \end{figure}
 
-The first rule L-COND from Figure \ref{fig:typing-rules-if} says that if we branch on a low
-guard, everything depends on the security level of $c$ and $c'$. The rule H-COND covers the
+The first rule \textsc{L-Cond} from Figure \ref{fig:typing-rules-if} says that if we branch on a low
+guard, everything depends on the security level of $c$ and $c'$. The rule \textsc{H-Cond} covers the
 case where we have a high guard, in this case the control dependence region has to be marked
-high. The rule TOP-H-COND is the interesting one. Because of the preceding rules we can not
+high. The rule \textsc{Top-H-Cond} is the interesting one. Because of the preceding rules we can not
 be part of branch with a low guard, therefore we are in the outermost high branch. The premise
 $E' = lift_H(E, sregion(n))$ reads as: For all labels in the control dependence region $E$ is
 defined as $E'(n) = H \sqcup E(n)$ and $E'(n) = E(n)$ for all other labels.
