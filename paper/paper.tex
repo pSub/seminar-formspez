@@ -233,10 +233,10 @@ for sequential programs for which the following assumptions hold:
 
 \todo{Explain intuition}
 \begin{enumerate}
-\item We have a partial ordered set $(LType, \leq)$ of local types, with an initial
+\item We have a partial ordered set $(\text{LType}, \leq)$ of local types, with an initial
       type $t_{init}$
 \item and typing judgments of the form $se, i \vdash_{seq} s \Rightarrow t$, where
-      $s, t \in LType$, $i \in \mathcal{P}$ and se is a securirty environment.
+      $s, t \in \text{LType}$, $i \in \mathcal{P}$ and se is a securirty environment.
 \end{enumerate}
 
 This type system is extended by the following rules, to support multithreading:
