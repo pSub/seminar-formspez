@@ -200,10 +200,13 @@ is not modified and the history is extended with the current thread id and the s
 Based on this an evaluation relation $\Downarrow_{conc} \subseteq (\text{ConcState} \times \text{History}) \times
 \text{GMemory})$ is defined by
 
-\todo{explain intuition?}
 \begin{align*}
-s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h'. s,h \leadsto_{conc}^* s',h' \land s'.act = \emptyset \land s'.gmem = \mu
+s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h'.\ (s,h \leadsto_{conc}^* s',h') \land s'.act = \emptyset \land s'.gmem = \mu
 \end{align*}
+
+So the state $s$ evaluates according to a history $h$ to a final global memory $\mu$ iff there is a
+sequence of concurrent executions that terminates (i.e. there are no active threads) and has the
+global memory $\mu$.
 
 $P, \mu \Downarrow_{conc} \mu'$ is a shorthand for $\langle\langle main,\lambda_{init}(1)\rangle,
 \mu\rangle, \epsilon^{hist} \Downarrow_{conc} \mu'$, where $main$ is the identity of the main thread
