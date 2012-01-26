@@ -188,7 +188,7 @@ the current thread id is removed from the concurrent state and everything else i
 first rule.
 
 The third rule introduces the dynamic creation of new threads. In this rule the function $fresh_{l}$
-\footnote{It is assumed that $fresh_l \neq fresh_{l'} Leftrightarrow l \neq l'$}
+\footnote{It is assumed that $fresh_l \neq fresh_{l'} Leftrightarrow l \neq l'$.}
 takes a set of thread identifiers and returns a new thread identifier at level $l$ and $\lambda_{init} : \mathcal{P}
 \rightarrow \text{LocState}$ produces an initial state with the program pointer at the given program point.
 If the current instruction at program point $i$ is the \texttt{start} instruction, a new thread
