@@ -231,13 +231,16 @@ program which is typable, is noninterfering.
 The type system for multithreaded programs is build up from a type system
 for sequential programs for which the following assumptions hold:
 
-\todo{Explain intuition}
 \begin{enumerate}
 \item We have a partial ordered set $(\text{LType}, \leq)$ of local types, with an initial
       type $t_{init}$
 \item and typing judgments of the form $se, i \vdash_{seq} s \Rightarrow t$, where
       $s, t \in \text{LType}$, $i \in \mathcal{P}$ and se is a securirty environment.
 \end{enumerate}
+
+The intuition of the typing judgment is that if we execute the instruction at program
+point $i$ w.r.t. the security environment $se$ and the current type is $s$. Then the
+type after the execution is $t$.
 
 This type system is extended by the following rules, to support multithreading:
 
