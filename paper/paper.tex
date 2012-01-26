@@ -431,15 +431,18 @@ security level of the guard \textit{in} the branching instruction.
 We now take a look at the rules of this type system concerning the \texttt{if} instruction.
 
 \begin{figure}
+\begin{minipage}{.5\textwidth}
 \begin{align*}
 \inferrule[L-Cond]{\vdash e : L \\ \vdash_\alpha c : E \\ \vdash_\alpha c' : E}
 {\vdash_\alpha [\text{if} \ e \ \text{then} \ c \ \text{else} \ c']^n_\alpha : E}
 \end{align*}
-
+\end{minipage}
+\begin{minipage}{.5\textwidth}
 \begin{align*}
 \inferrule[H-Cond]{\vdash e : H \\ \vdash_\bullet c : E \\ \vdash_\bullet c' : E}
 {\vdash_\bullet [\text{if} \ e \ \text{then} \ c \ \text{else} \ c']^n_\bullet : E}
 \end{align*}
+\end{minipage}
 
 \begin{align*}
 \inferrule[Top-H-Cond]{\vdash e : H \\ \vdash_\bullet c : E \\
