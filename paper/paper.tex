@@ -269,9 +269,10 @@ and the second rule ensures, that the security level of the entry point
 of the spawned thread, is lower bounded by the level of the \texttt{start}
 instruction.
 
-A program is typeable in this type system $\mathcal{S}, se \vdash P$, where a function $\mathcal{S}:
-\mathcal{P} \rightarrow \text{LType}$ that maps a local type to every program point
-and a security environment $se$, iff $\mathcal{S}$ maps every initial program point
+A program is typeable in this type system (written $\mathcal{S}, se \vdash P$),
+where $\mathcal{S}$ is a function $\mathcal{S}: \mathcal{P} \rightarrow \text{LType}$
+that maps a local type to every program point
+and $se$ a security environment, iff $\mathcal{S}$ maps every initial program point
 (including the ones of spawned threads) to $\textsc{t}_{init}$ and for every program point $j$ which is an
 successor of $i$ there is a type $s \in \text{LType}$, such that $\textsc{s}$ is lower bounded
 by $\mathcal{S}(j)$ and $se, i \vdash \mathcal{S}(i) \Rightarrow \textsc{s}$ holds.
