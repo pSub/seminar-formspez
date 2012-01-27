@@ -206,7 +206,7 @@ s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h'.\ (s,h \leadsto_{conc}
 
 So the state $s$ evaluates according to a history $h$ to a final global memory $\mu$ iff there is a
 sequence of concurrent executions that terminates (i.e. there are no active threads) and has the
-global memory $\mu$.
+global memory $\mu$. $\leadsto_{conc}^*$ is the reflexive and transitive closure of of $\leadsto_{conc}$.
 
 $P, \mu \Downarrow_{conc} \mu'$ is a shorthand for $\langle\langle main,\lambda_{init}(1)\rangle,
 \mu\rangle, \epsilon^{hist} \Downarrow_{conc} \mu'$, where $main$ is the identity of the main thread
