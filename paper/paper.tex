@@ -97,6 +97,12 @@ information is released, \textit{who} released this information, \textit{where} 
 is released and \textit{when} the information is released (c.f. \cite{Sabelfeld05}). For these approaches it is necessary that an
 active attacker can only know as much as a passive attacker.
 
+Mechanisms for controlling the information flow can be implemented either dynamic or static. The dynamic approach\footnote{
+The taint mode of the programming language Perl uses this mechanism.}
+labels the information with security labels and propagates these labels wherever the information is used. The static
+approach\footnote{This approach is implemented in Jif for Java and Flow Caml for Caml.} analyses the program code and is
+therefor far more promising, because with this approach it is possible to check all evaluation paths.
+
 The paper resumed in the following concentrates on internal timing channels with a noninterference policy.
 
 \section{Summary of the article}
