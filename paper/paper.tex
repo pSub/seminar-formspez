@@ -549,7 +549,19 @@ In this section I will first give a short overview of two other approaches and t
 I will compare them with the approach presented before and draw a conclusion.
 
 \subsection{Observational Determinism for Concurrent Program Security}
-\subsection{Flexible Scheduler-Independent Security}
+\subsection{Flexible Scheduler-Independent Security\cite{Mantel10}}
+This approach developed by Mantel and Sudbrock has the goal to be on the one hand
+scheduler independent and on the other not too restrictive (i.e. does not treat
+obviously secure programs as insecure).
+
+To reach this goal they model the scheduling explicit but general enough to apply
+to a wide class of common schedulers. So rather than talking about program states,
+they introduces system configurations which contain the list of threads the global
+memory and the scheduler state. The scheduler is able to store information in its
+state and can retrieve input (e.g. the number of active threads). Based on this
+information the scheduler makes decisions. To cover probabilistic schedulers the
+decision making of the scheduler and the execution of the program is probabilistic.
+
 
 \bibliography{bibliography}
 
