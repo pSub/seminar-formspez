@@ -58,6 +58,35 @@ But all these methods cover the release of information and not the further
 propagation (i.e. how the information is used after having access to it or decrypting
 it). This is the place where information-flow security comes into play.
 
+The idea is to 'track and regulate' \cite{Zdancewic04} where information flows to
+prevent the leak of secret information. The ways on which the information flows
+through the system are called channels. Channels that are not indented to transport
+information are called covered channels\cite{Sabelfeld03}. These covered channels can
+be classified into the following categories (in the following examples $h$ is a secret
+variable and $l$ a variable that is plublic):
+
+\begin{itemize}
+\item \textit{Explicit and implicit flows}: In an explicit flow the information is leaked
+      directly into some public variable (e.g. $l := h$), while in implicit flows the information
+      is leaked through the control structure of the program (e.g. $\text{if}\ h = 1\ \text{then}\ l := 1\ \text{else}\ l := 0$).
+\item \textit{Probabilistic channels}: If an attacker is able to run a computation multiple times
+      he might be able to obtain information by looking at the probability distribution of the
+      public outputs.
+\item \textit{Power channels}: If the attacker has physical access to the computer or at least figure out
+      the power consumption, he might be able to obtain data through the changing power consumption.
+\item \textit{Resource exhausting channels}: Information also may be leaked through the exhaustion
+      of finite (mostly physical) resources (e.g. a buffer overflow).
+\item \textit{Termination channels}: The attacker can obtain information through the termination
+      or non-termination of the computation or program.
+\item \textit{Timing channels:} Information can be obtained through the time at which this action
+      occurs. On the one hand \textit{external} timing channels cover the action like the termination
+      of the program, where the attacker obtains information from the total execution time of the program.
+      On the other hand \textit{internal} timing channels are occur in multithreaded programs through the timing difference
+      between threads. For example the program \[\text{if}\ h = 1\ \{\text{sleep}(100)\}\ ;\ l := 1\ ||\ \text{sleep}(50)\ ;\ l := 0\]
+      executed with most schedulers will leak the information of $h$ into $l$ through the timing difference
+      if $h = 1$.
+\end{itemize}
+
 \section{Summary of the article}
 \label{sec:discussion}
 In this summary I will follow mainly the structure of the original
