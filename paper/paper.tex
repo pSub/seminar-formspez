@@ -259,7 +259,7 @@ Based on this an evaluation relation $\Downarrow_{conc} \subseteq (\text{ConcSta
 \text{GMemory})$ is defined by
 
 \begin{align*}
-s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h'.\ (s,h \leadsto_{conc}^* s',h') \land s'.act = \emptyset \land s'.gmem = \mu
+s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h':\ (s,h \leadsto_{conc}^* s',h') \land s'.act = \emptyset \land s'.gmem = \mu
 \end{align*}
 
 So the state $s$ evaluates according to a history $h$ to a final global memory $\mu$ iff there is a
