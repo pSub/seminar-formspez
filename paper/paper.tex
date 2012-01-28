@@ -206,7 +206,7 @@ To define what noninterference means we need a notion of excution. It is assumed
 that we have a sequential execution relation $\leadsto_{seq} \subseteq \text{SeqState} \times
 \text{SeqState}$. The one step execution for the multithreaded language $\leadsto_{seq}
 \subseteq (\text{ConcState} \times \text{History}) \times (\text{ConcState} \times \text{History})$ is defined
-by the following rules.
+by the rules in figure \ref{fig:multithreaded-execution}.
 
 \begin{figure}
 \begin{align*}
@@ -494,7 +494,8 @@ of $E$ see \cite{Barthe06}.} $\alpha$ denotes if $c$ is \textit{part of} a branc
 instruction that branches on secret ($\bullet$) or public ($\circ$) data and $\alpha'$ is the
 security level of the guard \textit{in} the branching instruction.
 
-We now take a look at the rules of this type system concerning the \texttt{if} instruction.
+We now take a look at the rules of this type system concerning the \texttt{if} instruction, which are
+defined in figure \ref{fig:typing-rules-if}.
 
 \begin{figure}
 \begin{minipage}{.5\textwidth}
@@ -561,6 +562,7 @@ memory and the scheduler state. The scheduler is able to store information in it
 state and can retrieve input (e.g. the number of active threads). Based on this
 information the scheduler makes decisions. To cover probabilistic schedulers the
 decision making of the scheduler and the execution of the program is probabilistic.
+
 
 \subsection{Conclusion}
 
