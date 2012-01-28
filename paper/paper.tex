@@ -136,7 +136,9 @@ The next thing introduced are the security levels. We assume the attacker
 'is' a level $k$. From this assumption we can reduce every set of security levels
 w.l.o.g into $\{low, high\}$, where $low < high$, by mapping elements
 that are no more sensitive than $k$ to $low$ and all other elements
--- including incomparable ones -- to $high$.
+-- including incomparable ones -- to $high$. It is also assumed, that access
+control works correctly (i.e. the attacker can not access $high$ elements
+directly).
 
 To connect programs and security levels, a \textit{security environment}
 (se) is defined, which is used to prevent flows over implicit channels.
