@@ -82,9 +82,9 @@ variable and $l$ a variable that is plublic):
       occurs. On the one hand \textit{external} timing channels cover the action like the termination
       of the program, where the attacker obtains information from the total execution time of the program.
       On the other hand \textit{internal} timing channels are occur in multithreaded programs through the timing difference
-      between threads. For example the program \[\text{if}\ h = 1\ \{\text{sleep}(100)\}\ ;\ l := 1\ ||\ \text{sleep}(50)\ ;\ l := 0\]
+      between threads. For example the two threaded (modeled with $||$) program \[\text{if}\ h = 1\ \{\text{sleep}(100)\}\ ;\ l := 1\ ||\ \text{sleep}(50)\ ;\ l := 0\]
       executed with most schedulers will leak the information of $h$ into $l$ through the timing difference
-      if $h = 1$.
+      if $h = 1$. 
 \end{itemize}
 
 \section{Summary of the article}
