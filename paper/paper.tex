@@ -26,25 +26,23 @@
 
 \section{Motivation}
 \label{sec:motivation}
-Barthe, Rezk, Russo and Sabelfeld introduced with
-their paper \cite{Barthe07} a framework to guarantee
-noninterference in multithreaded programs at byte-code
-level. Noninterference is a security property which
-says that a program does not leak sensitive information
-to an adversary. Since more and more (mobile) devices handle
-an increasing number of tasks, multithreading is widely used
-to prevent lock ups (when e.g. establishing a
-network-connection). But often programs that are secure when they
-are executed sequentially, leak information when they are
-composed in parallel. This leads to an attractive channel of
-information leakage.
+Protecting the confidentiality of information that is processed by
+a modern computer is challenging and important, since more and more sensitive
+information is fed to them. Access control and encryption are not enough to
+ensure this confidentiality, because the usage of the information after the
+access or decryption is not restricted. It is necessary to control the
+\textit{information flow} to protect the sensitive information.
+On modern mobile devices sensitive information is processed and programs
+are executed multithreaded (e.g. to prevent lock ups when establishing
+a network connection). Through the timing difference of the scheduled threads it
+is likely that sensitive information is leaked and an attack may obtain all
+sensitive data.
 
-The idea of Barthe et. al. was to close this channel by compiling
-type information into the byte-code, which cause the scheduler to
-treat the secure parts in a different way. The fact that many mobile
-platforms already use some byte-code (e.g. Android uses a modification
-of the JVM byte-code) may have been a reason for the decision to use
-type-annotated byte-code.
+The idea Barthe, Rezk, Russo and Sabelfeld phrased in \cite{Barthe07} was to close
+this leak (more formally called \textit{covert channel}) by annotating the byte-code
+of the program (most mobile devices use some sort of byte-code e.g. Android) with security
+labels according to the processed information, which causes the scheduler to hide
+threads that leak information from the attacker.
 
 \section{Introduction to the research area}
 \label{sec:introduction}
