@@ -459,8 +459,8 @@ c ::= [x\ :=\ e]^n\ |\ c;c\ |\ [\text{if}\ e\ \text{then}\ c\ \text{else}\ c]^n\
 
 According to this labels we can define the dependence regions for the source language:
 
-\begin{definition}{sregion}
-The control dependence region for a branching command $[c]^n$ in the source language is
+\begin{definition}
+The control dependence region $sregion(n)$ for a branching command $[c]^n$ in the source language is
 defined as the labels inside the branching command, except for those ones that are inside a
 \texttt{fork} command.
 \end{definition}
@@ -468,14 +468,14 @@ defined as the labels inside the branching command, except for those ones that a
 Now we can define $tregion$ according to a compilation function $\mathcal{C}$. I won't define
 the compilation function here, because it is not that essential how it exactly looks like.
 
-\begin{definition}{tregion}
+\begin{definition}
 $tregion(n)$ is defined as the set of instruction labels obtained by compiling the commands
 $[c']^{n'}$ of the branching instruction $[c]^n$ of the source code with a compilation function $\mathcal{C}$.
 \end{definition}
 
 With this definition of $tregion$ in mind, it is easy to define the junction points.
 
-\begin{definition}{jun}
+\begin{definition}
 The junction points are computed by a function $jun: \mathcal{P} \rightarrow \mathcal{P}$. It is defined
 on all junction points $[c]^n$ in the source program and its domain is $jun(n) = max \{i\ |\ i \in tregion(n)\} + 1$.
 \end{definition}
@@ -532,9 +532,9 @@ replace the type system defined previously.
 
 With this type system in mind, we can now define our \texttt{next} function.
 
-\begin{definition}{next}
-For every branching point $c$ in the source program such that $\vdash_\circ [c]_\bullet^n$, we  have
-that $\forall k \in tregion(n) .\ next(k) = jun(n)$.
+\begin{definition}
+For every branching point $c$ in the source program such that $\vdash_\circ [c]_\bullet^n$, the next function
+is defined as $\forall k \in tregion(n) .\ next(k) = jun(n)$.
 \end{definition}
 
 The proof that this definition fulfills the properties from section \ref{sec:soundness} and all other
