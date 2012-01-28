@@ -87,8 +87,17 @@ variable and $l$ a variable that is plublic):
       if $h = 1$.
 \end{itemize}
 
+The notion of confidentiality that is used in most work in the area of information-flow security is \textit{noninterference}.
+This policy is defined in various ways but the essence is, that it requires 'that secret information
+[do] not affect [the] publicly observable behavior of a system'\cite{Zdancewic04}. For most real world
+applications this policy is far too strict, because it forbids useful programs like password checkers.\footnote{For a
+password checker its necessary to reveal whether the user input was correct or not.} Approaches that allow
+controlled release of information are called declassification. The kinds of declassification are \textit{what}
+information is released, \textit{who} released this information, \textit{where} in the system the information
+is released and \textit{when} the information is released (c.f. \cite{Sabelfeld05}). For these approaches it is necessary that an
+active attacker can only know as much as a passive attacker.
 
-
+The paper resumed in the following concentrates on internal timing channels with a noninterference policy.
 
 \section{Summary of the article}
 \label{sec:discussion}
