@@ -61,8 +61,8 @@ it). This is the place where information-flow security comes into play.
 The idea is to 'track and regulate' \cite{Zdancewic04} where information flows to
 prevent the leak of secret information. The ways on which the information flows
 through the system are called channels. Channels that are not indented to transport
-information are called covered channels\cite{Sabelfeld03}. These covered channels can
-be classified into the following categories (in the following examples $h$ is a secret
+information are called covered channels. These covered channels can
+be classified into the following categories \cite{Sabelfeld03} (in the following examples $h$ is a secret
 variable and $l$ a variable that is plublic):
 
 \begin{itemize}
@@ -86,6 +86,9 @@ variable and $l$ a variable that is plublic):
       executed with most schedulers will leak the information of $h$ into $l$ through the timing difference
       if $h = 1$.
 \end{itemize}
+
+
+
 
 \section{Summary of the article}
 \label{sec:discussion}
