@@ -377,10 +377,8 @@ The domain of next (i.e. NePd) captures the high, but not always high program po
 that can result in a hidden thread). The property NeP1, states that two directly successive high
 program points have the same program point in which the thread becomes visible again. The property NeP2
 is the counterpart of the NeP1: If a low program point follows a high program point, this low program
-point is the result of the next function for the high program point.
-
-\todo{What is wrong with property 4 (NeP3)}
-\todo{What is wrong with property 5 (NeP4)}
+point is the result of the next function for the high program point. NeP3 and NeP4 denote that the
+next of an if respective while instruction is at least after the control dependence region.
 
 \subsection{Instantiation}
 \label{sec:instantiation}
