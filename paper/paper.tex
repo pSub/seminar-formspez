@@ -35,20 +35,20 @@ access or decryption is not restricted. It is necessary to control the
 On modern mobile devices sensitive information is processed and programs
 are executed multithreaded (e.g. to prevent lock ups when establishing
 a network connection). Through the timing difference of the scheduled threads it
-is likely that sensitive information is leaked and an attack may obtain all
+is likely that sensitive information is leaked and an attacker may obtain
 sensitive data.
 
 The idea Barthe, Rezk, Russo and Sabelfeld phrased in \cite{Barthe07} was to close
-this leak (more formally called \textit{covert channel}) by annotating the byte-code
-of the program (most mobile devices use some sort of byte-code e.g. Android) with security
-labels according to the processed information, which causes the scheduler to hide
+this leak (formally called \textit{covert channel}) by annotating the byte-code
+of the program\footnote{most mobile devices use some sort of byte-code e.g. Android} with security
+labels according to the confidentiality of the information, which causes the scheduler to hide
 threads that leak information from the attacker.
 
 \section{Introduction to the research area}
 \label{sec:introduction}
 The challenge to protect the confidentiality of information processed by
 a computer lead thirty years ago (c.f. \cite{Zdancewic04}) to the research
-on the security information-flows, because of the shortcomings of the standard methods.
+on the security of information-flows, because of the shortcomings of the standard methods.
 These standard methods are: Access control and encryption. Where
 access control ensures that the data is only accessed by an authorized entity,
 and encryption ensures that data can be securely transmitted over an insecure channel.
@@ -61,34 +61,34 @@ prevent the leak of secret information. The ways on which the information flows
 through the system are called channels. Channels that are not indented to transport
 information are called covered channels. These covered channels can
 be classified into the following categories \cite{Sabelfeld03} (in the following examples $h$ is a secret
-variable and $l$ a variable that is plublic):
+variable and $l$ a variable that is public):
 
 \begin{itemize}
 \item \textit{Explicit and implicit flows}: In an explicit flow the information is leaked
       directly into some public variable (e.g. $l := h$), while in implicit flows the information
       is leaked through the control structure of the program (e.g. $\text{if}\ h = 1\ \text{then}\ l := 1\ \text{else}\ l := 0$).
-\item \textit{Probabilistic channels}: If an attacker is able to run a computation multiple times
+\item \textit{Probabilistic channels}: If an attacker is able to run a computation multiple times,
       he might be able to obtain information by looking at the probability distribution of the
       public outputs.
-\item \textit{Power channels}: If the attacker has physical access to the computer or at least figure out
+\item \textit{Power channels}: If the attacker has physical access to the computer or at least can figure out
       the power consumption, he might be able to obtain data through the changing power consumption.
 \item \textit{Resource exhausting channels}: Information also may be leaked through the exhaustion
       of finite (mostly physical) resources (e.g. a buffer overflow).
 \item \textit{Termination channels}: The attacker can obtain information through the termination
       or non-termination of the computation or program.
 \item \textit{Timing channels:} Information can be obtained through the time at which this action
-      occurs. On the one hand \textit{external} timing channels cover the action like the termination
+      occurs. On the one hand \textit{external} timing channels cover the actions like the termination
       of the program, where the attacker obtains information from the total execution time of the program.
-      On the other hand \textit{internal} timing channels are occur in multithreaded programs through the timing difference
+      On the other hand \textit{internal} timing channels occur in multithreaded programs through the timing difference
       between threads. For example the two threaded (denoted with $||$) program \[\text{if}\ h = 1\ \{\text{sleep}(100)\}\ ;\ l := 1\ ||\ \text{sleep}(50)\ ;\ l := 0\]
       executed with most schedulers will leak the information of $h$ into $l$ through the timing difference
-      if $h = 1$.
+      between $h = 1$ and $h = 0$.
 \end{itemize}
 
 The notion of confidentiality that is used in most work in the area of information-flow security is \textit{noninterference}.
 This policy is defined in various ways but the essence is, that it requires \textit{"that secret information
-[do] not affect [the] publicly observable behavior of a system"}\footnote{Even wen the attacker has full access to the
-source code of the program.}\cite{Zdancewic04}. For most real world
+[do] not affect [the] publicly observable behavior of a system"}\cite{Zdancewic04}\footnote{Even if the attacker has full access to the
+source code of the program.}. For most real world
 applications this policy is far too strict, because it forbids useful programs like password checkers.\footnote{A
 password checker needs to reveal whether the user input was correct or not.} Approaches that allow
 controlled release of information are called declassification. The kinds of declassification are \textit{what}
@@ -96,23 +96,23 @@ information is released, \textit{who} released this information, \textit{where} 
 is released and \textit{when} the information is released (c.f. \cite{Sabelfeld05}). For these approaches it is necessary that an
 active attacker can only know as much as a passive attacker.
 
-Mechanisms for controlling the information flow can be implemented either dynamic or static. The dynamic approach\footnote{
+Mechanisms for controlling the information flow can be implemented either dynamic or static. Dynamic approaches\footnote{
 The taint mode of the programming language Perl uses this mechanism.}
-labels the information with security labels and propagates these labels wherever the information is used. The static
-approach\footnote{This approach is implemented in Jif for Java and Flow Caml for Caml.} analyses the program code and is
-therefor far more promising, because with this approach it is possible to check all evaluation paths.
+label the information with security labels and propagate these labels wherever the information is used. Static
+approaches\footnote{This mechanism is implemented in Jif for Java and Flow Caml for Caml.} analyze the program code and are
+therefor far more promising, because with these approaches it is possible to check all evaluation paths.
 
 The paper resumed in the following concentrates on internal timing channels with a noninterference policy.
 
 \section{Summary of the article}
 \label{sec:discussion}
 In this summary I will follow mainly the structure of the original
-paper \cite{Barthe07} which is as follows. After the introduction the basic
-terms and definitions for a multithreaded programs and the scheduler are
+paper \cite{Barthe07} which is as follows. First the basic
+terms and definitions for multithreaded programs and the scheduler are
 laid. After that the notion of security we want to achieve is presented.
 Along with this a skeleton of a type system is described, which ensures
-that a program typable in this type system is secure w.r.t the notion of
-security. The proof that this holds is sketched in the following section.
+that a program typeable in this type system is secure.
+The proof that this holds is sketched in the following section.
 In the last section the (by now) abstract framework is instantiated with a
 concrete example.
 
@@ -125,7 +125,8 @@ instructions.
 
 These instructions are not further specified, but contain an instruction
 to create a new thread (\texttt{start \textit{pc}} where pc is the start
-instruction of the new thread).
+instruction of the new thread). The instructions without \texttt{start}
+are called $SeqIns$.
 
 Further, there is a relation $\mapsto$ that describes possible successor
 instructions. \texttt{exit} is the only program point with no successor
@@ -134,7 +135,7 @@ following program point).
 
 The next thing introduced are the security levels. We assume the attacker
 "is" a level $k$. From this assumption we can reduce every set of security levels
-w.l.o.g into $\{low, high\}$, where $low < high$, by mapping elements
+w.l.o.g into $\text{Level} = \{low, high\}$, where $low < high$, by mapping elements
 that are no more sensitive than $k$ to $low$ and all other elements
 -- including incomparable ones -- to $high$. It is also assumed, that access
 control works correctly (i.e. the attacker can not access $high$ elements
@@ -164,14 +165,14 @@ At this point a first simplification can be made. Looking a state $s \in \text{C
 first extract the active threads (\texttt{s.act}) by taking the domain of the first
 component. According to a security environment we can classify these threads,
 with respect to their current program point (\texttt{s.pc(tid)} where $tid \in \text{Thread}$),
-into \textit{low} threads iff the current program point is low. In \textit{high}
+into \textit{low} threads if the current program point is low. In \textit{high}
 threads iff the current program point is high. In \textit{always high} threads
-iff the current program point is always high and in \textit{hidden} threads, iff
+if the current program point is always high and in \textit{hidden} threads, if
 the current program point is high but not always high.
 
 The latter two are the interesting ones. If a thread is \textit{always high} it
-can not leaks any information into low, because it never gets in touch
-with low program points. So these threads can safely be interleaved between any
+can not leak any information into low, because it never gets in touch
+with low program points. So these threads can safely be interleaved between all
 other threads by the scheduler.
 
 The \textit{hidden} threads are the ones we have to care about. These contain
@@ -189,22 +190,20 @@ operate on histories. A history is a list of pairs $(tid, l$), where $tid \in
 are recorded.
 
 At this point no concrete scheduler is defined to make the framework applicable
-for a wide class of schedulers. A scheduler is in this class iff it can be
+for a wide class of schedulers. A scheduler is in this class if it can be
 modeled as a function $pickt: \text{ConcState} \times \text{History} \rightharpoonup \text{Thread}$
 which satisfies the following constraints:
 
 \begin{enumerate}
 \item It always picks an active thread
-\item If there is a hidden thread, always choose high or always high threads
+\item If there is a hidden thread, always choose high or always high threads\footnote{With this constraint the interleaving of always high threads is realized}
 \item Only use low information and the low part of the history to choose a
       new thread
 \end{enumerate}
 
-In constraint two the interleaving of always high threads is realized.
-
-To define what noninterference means we need a notion of excution. It is assumed
+To define what noninterference means we need a notion of execution. It is assumed
 that we have a sequential execution relation $\leadsto_{seq} \subseteq \text{SeqState} \times
-\text{SeqState}$. The one step execution for the multithreaded language $\leadsto_{seq}
+\text{SeqState}$. One step execution for the multithreaded language $\leadsto_{seq}
 \subseteq (\text{ConcState} \times \text{History}) \times (\text{ConcState} \times \text{History})$ is defined
 by the rules in figure \ref{fig:multithreaded-execution}.
 
@@ -231,16 +230,16 @@ fresht_{se(i)}(s) = ntid \\ s(ctid).[pc := i + 1] = \sigma'}
 \label{fig:multithreaded-execution}
 \end{figure}
 
-The scheduler is allow to pick a new thread after every transition of $\leadsto_{seq}$. The
-intuition of the first rule is, that the scheduler picks a new thread $ctid$ which is at
-program point $i$. This program point maps to an sequential instruction. The exection of
-this instruction leads to a local state $\sigma$ and a global memory $\mu$. If these conditions
-are met and instruction $i$ was not the last instruction (i.e. $\sigma.pc \neq \mathtt{exit}$),
-then the concurent transition can be made. In this transition the concurrent state is updated
-according to the results of the sequential execution and the thread id and security level of $i$
+The scheduler is allowed to pick a new thread after every transition of $\leadsto_{seq}$. The
+intuition of the first rule is, that the scheduler picks a new thread $coed$ which is at
+program point $i$. This program point maps to an sequential instruction. The execution of
+this instruction leads to a local state $\sigma$ and a global memory $\mu$. If this is the case
+and the instruction $i$ was not the last instruction (i.e. $\sigma.pc \neq \mathtt{exit}$),
+then the concurrent transition can be made. In this transition the concurrent state is updated
+according to the results of the sequential execution and the thread id furthermore security level of $i$
 is recorded in the history.
 
-The second rule covers the case in which the thread pickted by the scheduler has only the current
+The second rule covers the case in which the thread picked by the scheduler has only the current
 instruction before terminating (i.e. $\sigma.pc = \mathtt{exit}$). In the concurrent transition
 the current thread id is removed from the concurrent state and everything else is like in the
 first rule.
@@ -250,7 +249,7 @@ The third rule introduces the dynamic creation of new threads. In this rule the 
 takes a set of thread identifiers and returns a new thread identifier at level $l$ and $\lambda_{init} : \mathcal{P}
 \rightarrow \text{LocState}$ produces an initial state with the program pointer at the given program point.
 If the current instruction at program point $i$ is the \texttt{start} instruction, a new thread
-identifier is picked w.r.t. the security level of $i$. The program counter of the current thread
+identifier is picked w.r.t. the security level of $i$, then program counter of the current thread
 is increased by one, to step to the next instruction. The resulting concurrent state includes the
 updated state of the current thread and the initial state for the new thread. The global memory
 is not modified and the history is extended with the current thread id and the security level of $i$.
@@ -262,8 +261,8 @@ Based on this an evaluation relation $\Downarrow_{conc} \subseteq (\text{ConcSta
 s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h':\ (s,h \leadsto_{conc}^* s',h') \land s'.act = \emptyset \land s'.gmem = \mu
 \end{align*}
 
-So the state $s$ evaluates according to a history $h$ to a final global memory $\mu$ iff there is a
-sequence of concurrent executions that terminates (i.e. there are no active threads) and has the
+The intuition is that the state $s$ evaluates according to a history $h$ to a final global memory $\mu$ iff there is a
+sequence of concurrent executions that terminates (i.e. there are no active threads left) and has the
 global memory $\mu$. $\leadsto_{conc}^*$ is the reflexive and transitive closure of of $\leadsto_{conc}$.
 
 $P, \mu \Downarrow_{conc} \mu'$ is a shorthand for $\langle\langle main,\lambda_{init}(1)\rangle,
@@ -272,22 +271,22 @@ and $\epsilon^{hist}$ the empty history.
 
 Now we can define our goal: Noninterference. We define noninterference
 in accordance to an indistinguishability relation $\sim_g$ on global memories.
-Barthe et.al. state that it is not necessary, for the purpose of the paper,
-to specify the definition of this relation. But to get a feel for this
-relation, you can define it as: $\mu \sim_g \mu' \Leftrightarrow \mu|_{low} =
+Barthe et. al. state that it is not necessary -- for the purpose of the paper --
+to specify the definition of this relation. But to get a feeling for this
+relation, one can define it as: $\mu \sim_g \mu' \Leftrightarrow \mu|_{low} =
 \mu'|_{low}$ where $\mu|_{low}$ projects out all high elements. Based on that
-a program P is noninterfering if for all gobal memories $\mu_1, \mu_2, \mu_1'$
+a program P is non-interfering if for all global memories $\mu_1, \mu_2, \mu_1'$
 and $\mu_2'$ it holds that:
 
 \begin{align*}
-\mu_1 \sim_g \mu_2 \land P,\mu_1 \Downarrow_{conc} \mu_1' \land P,\mu_2 \Downarrow_{conc} \mu_2' \Rightarrow \mu_1' \sim_g \mu_2'
+\mu_1 \sim_g \mu_2 \land (P,\mu_1 \Downarrow_{conc} \mu_1') \land (\text{P},\mu_2 \Downarrow_{conc} \mu_2') \Rightarrow \mu_1' \sim_g \mu_2'
 \end{align*}
 
 \subsection{Type system}
 \label{sec:typesystem}
-The type system is the core part of the framework in the effect that it
+The type system is the core part of the framework in the sense that it
 enforces the previously defined noninterference property. Thus every
-program which is typable, is noninterfering.
+program which is typeable, is non-interfering.
 
 The type system for multithreaded programs is build up from a type system
 for sequential programs for which the following assumptions hold:
@@ -299,8 +298,8 @@ for sequential programs for which the following assumptions hold:
       $\textsc{s}, \textsc{t} \in \text{LType}$, $i \in \mathcal{P}$ and se is a securirty environment.
 \end{enumerate}
 
-The intuition of the typing judgment is that if we execute the instruction at program
-point $i$ w.r.t. the security environment $se$ and the current type is $\textsc{s}$. Then the
+The intuition of the typing judgment is, that if we execute the instruction at program
+point $i$ w.r.t. the security environment $se$ and the current type is $\textsc{s}$, then the
 type after the execution is $\textsc{t}$.
 
 This type system is extended by the following rules, to support multithreading:
@@ -331,8 +330,8 @@ A program is typeable in this type system (written $\mathcal{S}, se \vdash P$),
 where $\mathcal{S}$ is a function $\mathcal{S}: \mathcal{P} \rightarrow \text{LType}$
 that maps a local type to every program point
 and $se$ a security environment, iff $\mathcal{S}$ maps every initial program point
-(including the ones of spawned threads) to $\textsc{t}_{init}$ and for every program point $j$ which is an
-successor of $i$ there is a type $s \in \text{LType}$, such that $\textsc{s}$ is lower bounded
+\footnote{including the ones of spawned threads} to $\textsc{t}_{init}$ and that for every program point $j$, which is an
+successor of $i$, there is a type $s \in \text{LType}$, such that $\textsc{s}$ is lower bounded
 by $\mathcal{S}(j)$ and $se, i \vdash \mathcal{S}(i) \Rightarrow \textsc{s}$ holds.
 
 \subsection{Soundness}
@@ -345,7 +344,7 @@ parts.
 The goal is to proof the following theorem:
 
 \begin{theorem}
-If the scheduler is secure and $se, \mathcal{S} \vdash P$, then P is noninterfering.
+If the scheduler is secure and $se, \mathcal{S} \vdash \text{P}$, then $\text{P}$ is non-interfering.
 \end{theorem}
 
 The scheduler is secure, if it is defined w.r.t. the conditions from section \ref{sec:syntaxsemantics}.
@@ -376,7 +375,7 @@ that can result in a hidden thread). The property NeP1, states that two directly
 program points have the same program point in which the thread becomes visible again. The property NeP2
 is the counterpart of the NeP1: If a low program point follows a high program point, this low program
 point is the result of the next function for the high program point. NeP3 and NeP4 denote that the
-next of an if respective while instruction is at least after the control dependence region.
+next of an outermost if respective while instruction is at least after the control dependence region.
 
 \subsection{Instantiation}
 \label{sec:instantiation}
@@ -394,7 +393,7 @@ instr &::= \text{binop}\ op && \text{binary operation with values from stack} \\
 
 where $op \in \{+,-,\times,/\}$, $n \in \mathbb{Z}$ and $x$ are variables. The
 operational semantics are standard and not explicitly necessary for the following
-instantiation, therefor they are omited.
+instantiation, therefor they are omitted.
 
 The local states are modeled as a pair of the operand stack and the program counter. The
 initial state $\lambda_{init}(pc)$ has an empty operand stack $\epsilon$ and points to
@@ -403,8 +402,8 @@ the given initial program point.
 Besides this concrete language we need to define a type system to enforce noninterference
 according to section \ref{sec:typesystem}. The local types are defined by a stack of security levels
 $\text{LType} = \text{Stack}(\text{Level})$ and $\textsc{t}_{init}$ with the empty stack. The typing rules defined in
-figure~\ref{fig:multithreaded-typing-rules} need to be extended with rules for the concrete instructions
-of the assembly language. In this summary I only explain two of them, the rest follows
+figure~\ref{fig:multithreaded-typing-rules} are extended with rules for the concrete instructions
+of the assembly language in figure~\ref{fig:transfer-rules}. In this summary I only explain two of them, the rest follows
 in a similar manner.
 
 \begin{figure}
@@ -427,7 +426,7 @@ in a similar manner.
 The security levels in $LType$ are the security levels of the operands in the local state. To
 express our security policy, we declare a function $\Gamma(x)$ that assigns to every variable
 $x$ a security level. If we now want to \texttt{store} the top of the stack into the variable
-$x$ one premise is that the security level of the program point ($se(i)$) \textit{and} the
+$x$, one premise is that the security level of the program point $se(i)$ \textit{and} the
 security level of the value on top of the operand stack is \textit{lower or equal} to the
 security level that was assigned by $\Gamma$ to the variable $x$. If this is the case the head
 of $LType$ is removed. The $\sqcup$ operator is like a logical "or", it returns the higher of
@@ -465,7 +464,7 @@ defined as the labels inside the branching command, except for those ones that a
 \end{definition}
 
 Now we can define $tregion$ according to a compilation function $\mathcal{C}$. I won't define
-the compilation function here, because it is not that essential how it exactly looks like.
+the compilation function here, because it is not essential how it exactly looks like.
 
 \begin{definition}
 $tregion(n)$ is defined as the set of instruction labels obtained by compiling the commands
@@ -546,7 +545,7 @@ in the paper.
 \section{Comparison with other approaches/further work}
 \label{sec:furtherwork}
 In this section I will first give a short overview of two other approaches and then
-I will compare them with the approach presented before and draw a conclusion.
+compare them with the approach presented before and draw a conclusion.
 
 \subsection{Observational Determinism for Concurrent Program Security\cite{Zdancewic03}}
 Zdancewic and Myers approach has to goal to provide a secure concurrent language
@@ -556,10 +555,10 @@ be checked statically.
 They introduced the language $\lambda_{SEC}^{PAR}$ which supports higher-order functions, an
 unbounded number of threads, synchronization (via join patterns), message passing and shared memory. Regardless of those realistic
 features $\lambda_{SEC}^{PAR}$ is not intended to server as a user-lever programming language because its
-syntax and type system is too awkward, instead it is a model for studying information flow.
+syntax and type system is too awkward. Instead it is only used a model for studying information flow.
 
-Low-security observational determinism is used to ensure noninterference. The idea is
-that to make the naturally nondeterministic system, deterministic from the point of view
+Low-security observational determinism is used to enforce noninterference. The idea is
+to make the naturally nondeterministic system, deterministic from the point of view
 of the attacker.
 
 This deterministic noninterference is defined as
@@ -579,12 +578,11 @@ the security of programs can be checked statically.
 
 \subsection{Flexible Scheduler-Independent Security\cite{Mantel10}}
 This approach developed by Mantel and Sudbrock has the goal to be on the one hand
-scheduler independent and on the other not too restrictive (i.e. does not treat
-obviously secure programs as insecure).
+scheduler independent and on the other not too restrictive.
 
 To reach this goal they model the scheduling explicit but general enough to apply
 to a wide class of common schedulers. So rather than talking about program states,
-they introduces system configurations which contain the list of threads (thread pool) the global
+they introduce system configurations which contains a list of threads (thread pool) the global
 memory and the scheduler state. The scheduler is able to store information in its
 state and can retrieve input (e.g. the number of active threads). Based on this
 information the scheduler makes decisions. To cover nondeterministic schedulers
@@ -594,8 +592,8 @@ of the program is probabilistic.
 Based on this scheduler model, a schedule-specific security property $\mathcal{S}$ is
 defined on thread pools. Intuitively a thread pool is $\mathcal{S}$-secure if the
 probability of running a program with system configuration $conf$ under the scheduler $\mathcal{S}$
-results in the same global memory modulo low-equality as running the program with
-system configuration $conf'$.
+resulting in a global memory $m$ is the same as running it with configuration $conf'$ resulting in $m'$,
+and satisfying that $m =_L m'$.
 
 The novel security property introduced in this paper is defined without mentioning the
 scheduler and equal to $\mathcal{S}$-security for a \textit{robust} scheduler $\mathcal{S}$.
@@ -629,7 +627,8 @@ is in that sense much more permissive.
 
 In the end Barthe et. al. presented a framework with reaches many goals (like permissiveness, statically check-able
 and requires no intervention from the programmer) but needs to modify the scheduler interface, which makes it
-hard to use for real programs.
+hard to use for real programs. In addition they did not how to implement the type-annotations in a real
+language.
 
 \bibliography{bibliography}
 
