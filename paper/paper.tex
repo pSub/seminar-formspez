@@ -557,13 +557,31 @@ obviously secure programs as insecure).
 
 To reach this goal they model the scheduling explicit but general enough to apply
 to a wide class of common schedulers. So rather than talking about program states,
-they introduces system configurations which contain the list of threads the global
+they introduces system configurations which contain the list of threads (thread pool) the global
 memory and the scheduler state. The scheduler is able to store information in its
 state and can retrieve input (e.g. the number of active threads). Based on this
 information the scheduler makes decisions. To cover nondeterministic schedulers
 (e.g. the uniform scheduler) the decision making of the scheduler and the execution
 of the program is probabilistic.
 
+Based on this scheduler model, a schedule-specific security property $\mathcal{S}$ is
+defined on thread pools. Intuitively a thread pool is $\mathcal{S}$-secure if the
+probability of running a program with system configuration $conf$ under the scheduler $\mathcal{S}$
+results in the same global memory modulo low-equality as running the program with
+system configuration $conf'$.
+
+The novel security property introduced in this paper is defined without mentioning the
+scheduler and equal to $\mathcal{S}$-security for a \textit{robust} scheduler $\mathcal{S}$.
+Therefor this property is called \textit{flexible scheduler-independent security} (FSI-security).
+A thread pool is FSI-secure if (starting from an low-equal memory configuration) the resulting
+memories are always low-equal when executing commands that potentially modify low-variables and if
+spawned threads are also FSI-secure.
+
+Those robust schedulers are those, for which \textit{"the scheduling of low threads during a run of a FSI-secure
+thread pool remains unchanged when one removes all high threads from the thread pool"}\cite{Mantel10}.
+
+If a program is FSI-secure or not is checked statically with a security type system, which is introduced
+for a sample while-language.
 
 \subsection{Conclusion}
 
