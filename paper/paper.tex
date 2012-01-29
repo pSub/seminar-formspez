@@ -612,6 +612,25 @@ If a program is FSI-secure or not is checked statically with a security type sys
 for a sample while-language.
 
 \subsection{Conclusion}
+The approach of Barthe et. al. shows how to build a framework to create type-annotated programs that can
+be check statically and can be run independent of the scheduling algorithm. Thus there is no need to trust
+the compiler.
+
+In contrast to Mantel and Sudbrocks work the whole framework depends heavily on the security of the scheduler.
+It is possible to choose most scheduling algorithms, but every algorithm needs to be modified satisfy the
+properties for a secure scheduler. Additionally its likely that the interface of the scheduler needs to be
+changed/extended in nearly ever implementation. The FSI-security instead is applicable to every robust
+scheduler without changing the algorithm or the interface.
+
+The approach also lacks (currently) support for real world languages. For example support of synchronization
+would be necessary to implement the approach for Java. The approach of Zdancewic and Myers supports those
+features, but is much more restrictive. Due to the use of observational determinism obviously secure programs
+like \texttt{l := 1 || l := 0} are rejected. The approach of Barthe et. al. does not reject those programs and
+is in that sense much more permissive.
+
+In the end Barthe et. al. presented a framework with reaches many goals (like permissiveness, statically check-able
+and requires no intervention from the programmer) but needs to modify the scheduler interface, which makes it
+hard to use for real programs.
 
 \bibliography{bibliography}
 
