@@ -560,8 +560,9 @@ to a wide class of common schedulers. So rather than talking about program state
 they introduces system configurations which contain the list of threads the global
 memory and the scheduler state. The scheduler is able to store information in its
 state and can retrieve input (e.g. the number of active threads). Based on this
-information the scheduler makes decisions. To cover probabilistic schedulers the
-decision making of the scheduler and the execution of the program is probabilistic.
+information the scheduler makes decisions. To cover nondeterministic schedulers
+(e.g. the uniform scheduler) the decision making of the scheduler and the execution
+of the program is probabilistic.
 
 
 \subsection{Conclusion}
