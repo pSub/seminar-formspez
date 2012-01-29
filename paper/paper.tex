@@ -363,10 +363,10 @@ This intuition is capture in the following properties for the function $next: \m
 
 {\small
 \begin{enumerate}
-\item[NePd] $Dom(next) = \{i \in \mathcal{P} | se(i) = high \land \exists j \in \mathcal{P} . i \mapsto^* j \land se(j) \neq high\}$ \todo{use simple method of new paper?}
+\item[NePd] $Dom(next) = \{i \in \mathcal{P} | se(i) = high \land \exists j \in \mathcal{P} . i \mapsto^* j \land se(j) \neq high\}$
 \item[NeP1] $i, j \in Dom(next) \land i \mapsto j \Rightarrow next(i) = next(j)$
 \item[NeP2] $i \in Dom(next) \land j \not\in Dom(next) \land i \mapsto j \Rightarrow next(i) = j$
-\item[NeP3] $j, k \in Dom(next) \land i \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k)$ \todo{is there an error?}
+\item[NeP3] $j, k \in Dom(next) \land i \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = next(k)$
 \item[NeP4] $i, j \in Dom(next) \land k \not\in Dom(next) \land i \mapsto j \land i \mapsto k \land j \neq k \Rightarrow next(j) = k$
 \end{enumerate}
 }
