@@ -550,6 +550,34 @@ In this section I will first give a short overview of two other approaches and t
 I will compare them with the approach presented before and draw a conclusion.
 
 \subsection{Observational Determinism for Concurrent Program Security\cite{Zdancewic03}}
+Zdancewic and Myers approach has to goal to provide a secure concurrent language
+that has a general and realistic support for concurrency and whose security can
+be checked statically.
+
+They introduced the language $\lambda_{SEC}^{PAR}$ which supports higher-order functions, an
+unbounded number of threads, synchronization (via join patterns), message passing and shared memory. Regardless of those realistic
+features $\lambda_{SEC}^{PAR}$ is not intended to server as a user-lever programming language because its
+syntax and type system is too awkward, instead it is a model for studying information flow.
+
+Low-security observational determinism is used to ensure noninterference. The idea is
+that to make the naturally nondeterministic system, deterministic from the point of view
+of the attacker.
+
+This deterministic noninterference is defined as
+
+\begin{align*}
+(m \approx_\zeta m' \land m \Downarrow T \land m' \Downarrow T') \Rightarrow T \approx_\zeta T'
+\end{align*}
+
+Where $T$ and $T'$ are traces of the execution of a program. $m$ and $m'$ are initial configurations.
+Let $T(L) = [M_0(L), M_1(L), \dots]$ be the list of values at location $L$ in the trace $T$. Then
+$T \approx_\zeta T'$ holds if the values of $T(L)$ and $T'(L)$ are pairwise indistinguishable. Since
+it is allowed that one sequence is a prefix of the other, there is no need to proof termination, but
+external timing attacks are possible.
+
+This notion of observational determinism is captured in a type system for $\lambda_{SEC}^{PAR}$, thus
+the security of programs can be checked statically.
+
 \subsection{Flexible Scheduler-Independent Security\cite{Mantel10}}
 This approach developed by Mantel and Sudbrock has the goal to be on the one hand
 scheduler independent and on the other not too restrictive (i.e. does not treat
