@@ -56,7 +56,7 @@ But all these methods cover the release of information and not the further
 propagation (i.e. how the information is used after having access to it or decrypting
 it). This is the place where information-flow security comes into play.
 
-The idea is to 'track and regulate' \cite{Zdancewic04} where information flows to
+The idea is to \textit{"track and regulate"}\cite{Zdancewic04} where information flows to
 prevent the leak of secret information. The ways on which the information flows
 through the system are called channels. Channels that are not indented to transport
 information are called covered channels. These covered channels can
@@ -86,8 +86,8 @@ variable and $l$ a variable that is plublic):
 \end{itemize}
 
 The notion of confidentiality that is used in most work in the area of information-flow security is \textit{noninterference}.
-This policy is defined in various ways but the essence is, that it requires 'that secret information
-[do] not affect [the] publicly observable behavior of a system'\footnote{Even wen the attacker has full access to the
+This policy is defined in various ways but the essence is, that it requires \textit{"that secret information
+[do] not affect [the] publicly observable behavior of a system"}\footnote{Even wen the attacker has full access to the
 source code of the program.}\cite{Zdancewic04}. For most real world
 applications this policy is far too strict, because it forbids useful programs like password checkers.\footnote{A
 password checker needs to reveal whether the user input was correct or not.} Approaches that allow
@@ -133,7 +133,7 @@ and \texttt{start \textit{pc}} may only have a single successor (the
 following program point).
 
 The next thing introduced are the security levels. We assume the attacker
-'is' a level $k$. From this assumption we can reduce every set of security levels
+"is" a level $k$. From this assumption we can reduce every set of security levels
 w.l.o.g into $\{low, high\}$, where $low < high$, by mapping elements
 that are no more sensitive than $k$ to $low$ and all other elements
 -- including incomparable ones -- to $high$. It is also assumed, that access
@@ -180,7 +180,7 @@ instructions that deal with low information. Since the attacker can watch the
 low part of the memory, chances are good that he can deduce high information
 through looking at changing low outputs. To prevent indirect flows that are introduced by
 these hidden threads, the scheduler will be modified to treat these threads
-in a special way. This will be done by 'hiding' these threads, therefore comes
+in a special way. This will be done by "hiding" these threads, therefore comes
 the name of them.
 
 To complete our multithreaded setup we need a scheduler. The scheduler will
@@ -431,7 +431,7 @@ $x$ a security level. If we now want to \texttt{store} the top of the stack into
 $x$ one premise is that the security level of the program point ($se(i)$) \textit{and} the
 security level of the value on top of the operand stack is \textit{lower or equal} to the
 security level that was assigned by $\Gamma$ to the variable $x$. If this is the case the head
-of $LType$ is removed. The $\sqcup$ operator is like a logical 'or', it returns the higher of
+of $LType$ is removed. The $\sqcup$ operator is like a logical "or", it returns the higher of
 the given security values.
 
 The rule for the branching instruction can only be used if the security level of all program
