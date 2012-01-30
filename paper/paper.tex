@@ -40,7 +40,7 @@ sensitive data.
 
 The idea Barthe, Rezk, Russo and Sabelfeld phrased in \cite{Barthe07} was to close
 this leak (formally called \textit{covert channel}) by annotating the byte-code
-of the program\footnote{most mobile devices use some sort of byte-code e.g. Android} with security
+of the program\footnote{Most mobile devices use some sort of byte-code e.g. Android.} with security
 labels according to the confidentiality of the information, which causes the scheduler to hide
 threads that leak information from the attacker.
 
@@ -58,8 +58,8 @@ it). This is the place where information-flow security comes into play.
 
 The idea is to \textit{"track and regulate"}\cite{Zdancewic04} where information flows to
 prevent the leak of secret information. The ways on which the information flows
-through the system are called channels. Channels that are not indented to transport
-information are called covered channels. These covered channels can
+through the system are called \textit{channels}. Channels that are not intended to transport
+information are called \textit{covered channels}. These covered channels can
 be classified into the following categories \cite{Sabelfeld03} (in the following examples $h$ is a secret
 variable and $l$ a variable that is public):
 
@@ -85,7 +85,7 @@ variable and $l$ a variable that is public):
       between $h = 1$ and $h = 0$.
 \end{itemize}
 
-The notion of confidentiality that is used in most work in the area of information-flow security is \textit{noninterference}.
+The notion of confidentiality that is used in most work in the area of in\-for\-ma\-tion-flow security is \textit{noninterference}.
 This policy is defined in various ways but the essence is, that it requires \textit{"that secret information
 [do] not affect [the] publicly observable behavior of a system"}\cite{Zdancewic04}\footnote{Even if the attacker has full access to the
 source code of the program.}. For most real world
@@ -120,7 +120,7 @@ concrete example.
 \label{sec:syntaxsemantics}
 A program is viewed as an abstract thing, which consists of a set of
 program points $\mathcal{P}$ with a distinguished entry ($1$) and exit
-(\texttt{exit}) point and a function $P$ that maps program points to
+point (\texttt{exit}) and a function $P$ that maps program points to
 instructions.
 
 These instructions are not further specified, but contain an instruction
@@ -166,17 +166,17 @@ first extract the active threads (\texttt{s.act}) by taking the domain of the fi
 component. According to a security environment we can classify these threads,
 with respect to their current program point (\texttt{s.pc(tid)} where $tid \in \text{Thread}$),
 into \textit{low} threads if the current program point is low. In \textit{high}
-threads iff the current program point is high. In \textit{always high} threads
+threads if the current program point is high. In \textit{always high} threads
 if the current program point is always high and in \textit{hidden} threads, if
 the current program point is high but not always high.
 
-The latter two are the interesting ones. If a thread is \textit{always high} it
+The last two are the interesting ones. If a thread is \textit{always high} it
 can not leak any information into low, because it never gets in touch
 with low program points. So these threads can safely be interleaved between all
 other threads by the scheduler.
 
 The \textit{hidden} threads are the ones we have to care about. These contain
-obviously high information in the current program point, but have afterwards
+obviously high information in the current program point, but have subseqent
 instructions that deal with low information. Since the attacker can watch the
 low part of the memory, chances are good that he can deduce high information
 through looking at changing low outputs. To prevent indirect flows that are introduced by
@@ -196,7 +196,7 @@ which satisfies the following constraints:
 
 \begin{enumerate}
 \item It always picks an active thread
-\item If there is a hidden thread, always choose high or always high threads\footnote{With this constraint the interleaving of always high threads is realized}
+\item If there is a hidden thread, always choose high or always high threads\footnote{With this constraint the interleaving of always high threads is realized.}
 \item Only use low information and the low part of the history to choose a
       new thread
 \end{enumerate}
@@ -221,7 +221,7 @@ by the rules in figure \ref{fig:multithreaded-execution}.
 \end{align*}
 
 \begin{align*}
-\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] = \mathtt{start} pc \\
+\inferrule{pick(s, h) = ctid \\ s.pc(ctid) = i \\ P[i] = \mathtt{start}\ pc \\
 fresht_{se(i)}(s) = ntid \\ s(ctid).[pc := i + 1] = \sigma'}
 {s,h \leadsto_{conc} s.[lst(ctid) := \sigma', lst(ntid) := \lambda_{init}(pc)],
 \langle ctid, se(i)\rangle :: h}
@@ -236,12 +236,12 @@ program point $i$. This program point maps to an sequential instruction. The exe
 this instruction leads to a local state $\sigma$ and a global memory $\mu$. If this is the case
 and the instruction $i$ was not the last instruction (i.e. $\sigma.pc \neq \mathtt{exit}$),
 then the concurrent transition can be made. In this transition the concurrent state is updated
-according to the results of the sequential execution and the thread id furthermore security level of $i$
+according to the results of the sequential execution and the thread identifier, furthermore security level of $i$
 is recorded in the history.
 
 The second rule covers the case in which the thread picked by the scheduler has only the current
 instruction before terminating (i.e. $\sigma.pc = \mathtt{exit}$). In the concurrent transition
-the current thread id is removed from the concurrent state and everything else is like in the
+the current thread identifier is removed from the concurrent state and everything else is like in the
 first rule.
 
 The third rule introduces the dynamic creation of new threads. In this rule the function $fresh_{l}$
@@ -252,7 +252,7 @@ If the current instruction at program point $i$ is the \texttt{start} instructio
 identifier is picked w.r.t. the security level of $i$, then program counter of the current thread
 is increased by one, to step to the next instruction. The resulting concurrent state includes the
 updated state of the current thread and the initial state for the new thread. The global memory
-is not modified and the history is extended with the current thread id and the security level of $i$.
+is not modified and the history is extended with the current thread identifier and the security level of $i$.
 
 Based on this an evaluation relation $\Downarrow_{conc} \subseteq (\text{ConcState} \times \text{History}) \times
 \text{GMemory})$ is defined by
@@ -302,7 +302,7 @@ The intuition of the typing judgment is, that if we execute the instruction at p
 point $i$ w.r.t. the security environment $se$ and the current type is $\textsc{s}$, then the
 type after the execution is $\textsc{t}$.
 
-This type system is extended by the following rules, to support multithreading:
+This type system is extended by the following rules to support multithreading:
 
 \begin{figure}
 \begin{minipage}{.5\textwidth}
@@ -329,8 +329,8 @@ instruction.
 A program is typeable in this type system (written $\mathcal{S}, se \vdash P$),
 where $\mathcal{S}$ is a function $\mathcal{S}: \mathcal{P} \rightarrow \text{LType}$
 that maps a local type to every program point
-and $se$ a security environment, iff $\mathcal{S}$ maps every initial program point
-\footnote{including the ones of spawned threads} to $\textsc{t}_{init}$ and that for every program point $j$, which is an
+and $se$ a security environment, iff $\mathcal{S}$ maps every initial program point\footnote{
+Including the ones of spawned threads.} to $\textsc{t}_{init}$ and that for every program point $j$, which is an
 successor of $i$, there is a type $s \in \text{LType}$, such that $\textsc{s}$ is lower bounded
 by $\mathcal{S}(j)$ and $se, i \vdash \mathcal{S}(i) \Rightarrow \textsc{s}$ holds.
 
@@ -381,7 +381,7 @@ next of an outermost if respective while instruction is at least after the contr
 \subsection{Instantiation}
 \label{sec:instantiation}
 To demonstrate how the framework can be used, it was instantiated with a simple
-assembly language, which is given by the follow grammar:
+assembly language, which is given by the following grammar:
 
 \begin{align*}
 instr &::= \text{binop}\ op && \text{binary operation with values from stack} \\
@@ -456,7 +456,7 @@ source language at the regions at risk with natural numbers:
 c ::= [x\ :=\ e]^n\ |\ c;c\ |\ [\text{if}\ e\ \text{then}\ c\ \text{else}\ c]^n\ |\ [\text{while}\ e\ \text{do}\ c]^n\ |\ [\text{fork}(c)]^n
 \end{align*}
 
-According to this labels we can define the dependence regions for the source language:
+According to this labels we can define the control dependence regions for the source language:
 
 \begin{definition}
 The control dependence region $sregion(n)$ for a branching command $[c]^n$ in the source language is
@@ -533,7 +533,7 @@ replace the type system defined previously.
 With this type system in mind, we can now define our \texttt{next} function.
 
 \begin{definition}
-For every branching point $c$ in the source program such that $\vdash_\circ [c]_\bullet^n$, the next function
+For every branching point $c$ in the source program such that $\vdash_\circ~[c]_\bullet^n$, the next function
 is defined as $\forall k \in tregion(n) .\ next(k) = jun(n)$.
 \end{definition}
 
@@ -550,7 +550,7 @@ In this section I will first give a short overview of two other approaches and t
 compare them with the approach presented before and draw a conclusion.
 
 \subsection{Observational Determinism for Concurrent Program Security\cite{Zdancewic03}}
-Zdancewic and Myers approach has to goal to provide a secure concurrent language
+Zdancewic and Myers approach has the goal to provide a secure concurrent language
 that has a general and realistic support for concurrency and whose security can
 be checked statically.
 
