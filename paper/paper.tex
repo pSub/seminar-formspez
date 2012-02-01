@@ -475,7 +475,7 @@ $[c']^{n'}$ of the branching instruction $[c]^n$ of the source code with a compi
 With this definition of $tregion$ in mind, it is easy to define the junction points.
 
 \begin{definition}
-The junction points are computed by a function $jun: \mathcal{P} \rightarrow \mathcal{P}$. It is defined
+The junction points are computed by a function $jun: \mathcal{P} \rightarrow \mathcal{P}$. This function is defined
 on all junction points $[c]^n$ in the source program and its domain is $jun(n) = max \{i\ |\ i \in tregion(n)\} + 1$.
 \end{definition}
 
@@ -520,7 +520,7 @@ defined in figure \ref{fig:typing-rules-if}.
 \end{figure}
 
 The first rule \textsc{L-Cond} from Figure \ref{fig:typing-rules-if} says that if we branch on a low
-guard, everything depends on the security level of $c$ and $c'$. The rule \textsc{H-Cond} covers the
+guard, then everything depends on the security level of $c$ and $c'$. The rule \textsc{H-Cond} covers the
 case where we have a high guard, in this case the control dependence region has to be marked
 high. The rule \textsc{Top-H-Cond} is the interesting one. Because of the preceding rules we can not
 be part of branch with a low guard, therefore we are in the outermost high branch. The premise
@@ -569,8 +569,8 @@ This deterministic noninterference is defined as
 (m \approx_\zeta m' \land m \Downarrow T \land m' \Downarrow T') \Rightarrow T \approx_\zeta T'
 \end{align*}
 
-Where $T$ and $T'$ are traces of the execution of a program. $m$ and $m'$ are initial configurations.
-Let $T(L) = [M_0(L), M_1(L), \dots]$ be the list of values at location $L$ in the trace $T$. Then
+where $T$ and $T'$ are traces of the execution of a program. $m$ and $m'$ are initial configurations.
+Let $T(L) = [M_0(L), M_1(L), \dots]$ be the list of values at location $L$ in the trace $T$.
 $T \approx_\zeta T'$ holds if the values of $T(L)$ and $T'(L)$ are pairwise indistinguishable. Since
 it is allowed that one sequence is a prefix of the other, there is no need to proof termination, but
 external timing attacks are possible.
