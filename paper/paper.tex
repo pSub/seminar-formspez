@@ -258,7 +258,6 @@ is not modified and the history is extended with the current thread identifier a
 
 Based on this an evaluation relation $\Downarrow_{conc} \subseteq (\text{ConcState} \times \text{History}) \times
 \text{GMemory})$ is defined by
-
 \begin{align*}
 s, h \Downarrow_{conc} \mu \Leftrightarrow \exists s', h':\ (s,h \leadsto_{conc}^* s',h') \land s'.act = \emptyset \land s'.gmem = \mu
 \end{align*}
@@ -279,7 +278,6 @@ relation, one can define it as: $\mu \sim_g \mu' \Leftrightarrow \mu|_{low} =
 \mu'|_{low}$ where $\mu|_{low}$ projects out all high elements. Based on that
 a program P is non-interfering if for all global memories $\mu_1, \mu_2, \mu_1'$
 and $\mu_2'$ it holds that:
-
 \begin{align*}
 \mu_1 \sim_g \mu_2 \land (P,\mu_1 \Downarrow_{conc} \mu_1') \land (\text{P},\mu_2 \Downarrow_{conc} \mu_2') \Rightarrow \mu_1' \sim_g \mu_2'
 \end{align*}
@@ -445,7 +443,6 @@ dependence region has the same security level as the branching point.
 The next step is to construct the \texttt{next} function. To make this task easy, we introduce
 a source language which will be complied into the given assembly language. The source language
 is defined as follows:
-
 \begin{align*}
 e ::= n\ |\ x\ |\ e\ op\ e && c ::= x\ :=\ e\ |\ c;c\ |\ \text{if}\ e\ \text{then}\ c\ \text{else}\ c\ |\ \text{while}\ e\ \text{do}\ c\ |\ \text{fork}(c)
 \end{align*}
@@ -453,7 +450,6 @@ e ::= n\ |\ x\ |\ e\ op\ e && c ::= x\ :=\ e\ |\ c;c\ |\ \text{if}\ e\ \text{the
 Now it is easy to define the control dependence region and the junction points for the source
 language and deduce the ones for the assembly language from them. The first step is to label the
 source language at the regions at risk with natural numbers:
-
 \begin{align*}
 c ::= [x\ :=\ e]^n\ |\ c;c\ |\ [\text{if}\ e\ \text{then}\ c\ \text{else}\ c]^n\ |\ [\text{while}\ e\ \text{do}\ c]^n\ |\ [\text{fork}(c)]^n
 \end{align*}
