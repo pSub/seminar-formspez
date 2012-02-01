@@ -42,7 +42,9 @@ The idea Barthe, Rezk, Russo and Sabelfeld phrased in \cite{Barthe07} was to clo
 this leak (formally called \textit{covert channel}) by annotating the byte-code
 of the program\footnote{Most mobile devices use some sort of byte-code e.g. Android.} with security
 labels according to the confidentiality of the information, which causes the scheduler to hide
-threads that leak information from the attacker.
+threads that leak information from the attacker. Their formal model allows to
+formulate this idea as a framework, which can be instantiated with many programming languages,
+schedulers and types of byte-code.
 
 \section{Introduction to the research area}
 \label{sec:introduction}
